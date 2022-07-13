@@ -13,7 +13,7 @@ client.on('message', message => {
 client.on('ready', () => {
 console.log("Connected as " + client.user.tag);
 })
-// paste your bot secret token here
+
 bot_secret_token = "OTk2ODM2OTg2OTQ4MTU3NDYw.GGZOD3.RWt20TOOHCslV1_mS4N1NhSxgb7i6u3s-GY5IY";
 
 client.login(bot_secret_token);
