@@ -1,16 +1,25 @@
 {
-  "name": "disctest",
-  "version": "1.0.0",
-  "description": "",
+  "name": "lisamp",
+  "version": "0.0.1",
+  "description": "Music bot for discord",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "test"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itzpere/lisamp"
+  },
+  "keywords": [
+    "lisamp"
+  ],
+  "author": "itzpere",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itzpere/lisamp/issues"
+  },
+  "homepage": "https://github.com/itzpere/lisamp#readme",
   "dependencies": {
-    "discord.js": "^13.8.1",
-    "nodemon": "^2.0.19"
+    "discord.js": "^13.8.1"
   }
 }
