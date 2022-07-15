@@ -1,19 +1,55 @@
+
 // importing discord and its relevant classes
-const { Client, Intents } = require('discord.js');
-// Instantiate a new client
-const client = new Client(
-    { intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] }
-);
-client.on('message', message => {
-    if (message.content === '!hello') {
-        message.channel.send('Hello World!');
-    }
-});
+const { Client, Intents, Discord } = require('discord.js');
+const token = "OTk2ODM2OTg2OTQ4MTU3NDYw.GYte0H.ddc1kYyNi8v29-Lnhq3_eKpKfxnM4If6Nryxqg";
+const client = new Discord.Client({ 
+    intents : intents.ALL
+
+ });
+
+const PREFIX = "!";
+
+const fs = require('fs');
+
+client.commands = new Discord.Collection();
+
+// Implementing command folder
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for(const file of commandFiles)
+{
+    const command = require(`./commands/${file}`);
+    
+    client.commands.set(command.name, command);
+}
+
 // listening for event to notify progress
 client.on('ready', () => {
-console.log("Connected as " + client.user.tag);
+    console.log("Connected as " + client.user.tag);
+    })
+
+//commands
+client.on('interactionCreate', message => {
+    if(!message.content.startsWith(PREFIX) || message.author.bot) return;
+    const args = message.content.substring(PREFIX.length).split(/ +/);
+    const command = args.shift().toLowerCase();
+    switch (command){
+        case 'hello':
+            client.command.get('hello').execute(message, args);
+        break;
+        case 'clear':
+            client.command.get('clear').execute(message, args);
+        break;
+        case 'play':
+            client.command.get('play').execute(message, args);
+        break;
+        case 'leave':
+            client.command.get('leave').execute(message, args);
+        break;
+    }
 })
 
-bot_secret_token = "OTk2ODM2OTg2OTQ4MTU3NDYw.GGZOD3.RWt20TOOHCslV1_mS4N1NhSxgb7i6u3s-GY5IY";
+//super sercet token
+client.login(token);
 
-client.login(bot_secret_token);
+
+// https://www.youtube.com/watch?v=fN29HIaoHLU
