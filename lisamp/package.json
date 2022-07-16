@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/itzpere/lisamp#readme",
   "dependencies": {
+    "@discordjs/builders": "^0.15.0",
+    "@discordjs/rest": "^0.5.0",
+    "discord-api-types": "^0.36.2",
     "discord.js": "^13.8.1",
     "ffmpeg-static": "^5.0.2",
     "opusscript": "^0.0.8",
