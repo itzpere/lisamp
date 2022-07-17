@@ -1,9 +1,9 @@
 const fs = require('fs');
-
 const getFiles = (dir, suffix) => {
     const files = fs.readdirSync(dir, {
         withFileTypes: true,
     })
+
     let commandFiles = [];
 
     for(const file of files) {
