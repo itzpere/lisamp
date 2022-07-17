@@ -1,9 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { clientId, token, guildid } = require('./config.json');
-const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const { clientId, token, guildid, prefix } = require('./config.json');
+const { Client, Intents, Collection } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+
 //commands
 const commands = [
 	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
@@ -21,6 +22,12 @@ rest.put(Routes.applicationGuildCommands(clientId, guildid), { body: commands })
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
+client.on('ready', () => {
+	let handler = require('./command-handler.js')
+	if (handler.default) handler = handler.default
+
+	handler(client);
+  });
 //commands
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
