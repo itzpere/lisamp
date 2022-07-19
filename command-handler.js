@@ -3,10 +3,10 @@ const getFiles = require('./get-files');
 const { prefix, clientId, suffix} = require('./config.json');
 const { Client, Intents, Collection } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: 3243773 });
 
 module.exports = (client) => {
-const commands = {};
+    const commands = {};
 
 const commandFiles = getFiles('./commands', suffix);
 console.log("Found these command files :\n", commandFiles);
@@ -26,7 +26,6 @@ client.on('messageCreate', (message) => {
     }
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
-
     if (!commands[commandName]) {
         return;
     }

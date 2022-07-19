@@ -1,0 +1,20 @@
+{
+    "clear" : {
+        "Description" : "clears chat"
+    },
+    "help" : {
+        "Description" : "helps you understand the commands"
+    },
+    "leave" : {
+        "Description" : "Leaves the voice channel"
+    },
+    "ping" : {
+        "Description" : "Responds with pong!"
+    },
+    "server" : {
+        "Description" : "Writes the server info"
+    },
+    "play" : {
+        "Description" : "Plays the song"
+    }
+}
