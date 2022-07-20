@@ -1,7 +1,0 @@
-{
-	"clientId": "YourClientID",
-	"token": "YourToken",
-	"guildId": "YourGuildId",
-  "prefix": "!",
-	"suffix": ".js"
-}
