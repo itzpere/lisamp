@@ -23,3 +23,15 @@ client.on('ready', () => {
 
 client.login(token);
 console.log("Token: OK")
+
+/* config.json:
+
+{
+	"clientId": "YourClientID",
+	"token"   : "YourToken",
+	"guildId" : "YourGuildId",
+  	"prefix"  : "!",
+	"suffix"  : ".js"
+}
+
+*/
