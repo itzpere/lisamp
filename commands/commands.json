@@ -1,9 +1,9 @@
 {
     "clear" : {
-        "Description" : "clears chat"
+        "Description" : "Clears chat"
     },
     "help" : {
-        "Description" : "helps you understand the commands"
+        "Description" : "Helps you understand the commands"
     },
     "leave" : {
         "Description" : "Leaves the voice channel"

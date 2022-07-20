@@ -2,7 +2,6 @@ const fs = require('fs');
 const getFiles = require('./get-files');
 const { prefix, clientId, suffix} = require('./config.json');
 const { Client, Intents, Collection } = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const client = new Client({ intents: 3243773 });
 
 module.exports = (client) => {
