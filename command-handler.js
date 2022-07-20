@@ -8,7 +8,7 @@ module.exports = (client) => {
     const commands = {};
 
 const commandFiles = getFiles('./commands', suffix);
-console.log("Found these command files :\n", commandFiles);
+//console.log("Found these command files :\n", commandFiles);
 
 for (const command of commandFiles) {
     let commandFile = require(command)
@@ -18,7 +18,7 @@ for (const command of commandFiles) {
     commands[commandName.toLowerCase()] = commandFile;
     //todo add /slash commands
     }
-console.log("Commands are :\n",commands);
+//console.log("Commands are :\n",commands);
 client.on('messageCreate', (message) => {
     if(message.author.bot || !message.content.startsWith(prefix)) {
         return;
@@ -35,3 +35,4 @@ client.on('messageCreate', (message) => {
     }
   })
 }
+console.log("Command-Handler: OK")
