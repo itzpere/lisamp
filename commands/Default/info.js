@@ -1,6 +1,6 @@
 module.exports = {
     callback: (message, ...args) => {
         console.log("info: ",args);
-        message.reply("This is a private bot for **CrnaZemlja**\n*currently under development.*")
+        message.reply("LisAmp is a private bot for **CrnaZemlja.**\n\n**Current features**: answer the questions, can play music (*sometimes*). \n\n*currently under development.*")
     }
 }

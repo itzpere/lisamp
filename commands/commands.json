@@ -1,20 +1,26 @@
 {
     "clear" : {
-        "Description" : "Clears the music q"
+        "Description" : "Clears the music q."
     },
     "help" : {
-        "Description" : "Helps you understand the commands"
+        "Description" : "Helps you understand the commands."
     },
     "leave" : {
-        "Description" : "Leaves the voice channel"
+        "Description" : "Leaves the voice channel."
     },
     "ping" : {
         "Description" : "Responds with pong!"
     },
     "server" : {
-        "Description" : "Writes the server info"
+        "Description" : "Writes the server info."
     },
     "play" : {
-        "Description" : "Plays the song"
+        "Description" : "Plays the song."
+    },
+    "skip" : {
+        "Description" : "Skips the currently playing song."
+    },
+    "info" : {
+        "Description" : "Shows you some info about the bot."
     }
 }
