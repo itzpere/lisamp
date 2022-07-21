@@ -1,4 +1,4 @@
-const music = require('../../music-logic.js');
+const music = require('../../music-logic.js').music;
 module.exports = {
     callback: (message, ...args) => {
         console.log("play: ",args);

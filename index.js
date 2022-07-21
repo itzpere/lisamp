@@ -10,17 +10,12 @@ client.on('ready', () => {
 
 client.on('ready', () => {
 	let handler = require('./command-handler.js')
+	let music = require('./music-logic.js')
 	if (handler.default) handler = handler.default
 
 	handler(client);
   });
-
-  client.on('ready', () => {
-	let music = require('./music-logic.js')
-	if (music.default) music = music.default
-	music();
-  });
-
+  
 client.login(token);
 console.log("Token: OK")
 

@@ -1,8 +1,8 @@
+require("discord-player/smoothVolume");
 const { Client, Intents } = require ('discord.js');
 const { Player } = require("discord-player");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const player = new Player(client);
-
 player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
 
 //play
@@ -33,6 +33,6 @@ if (!track) return await message.reply({ content: `❌ | Track **${query}** not 
 queue.play(track);
 return await message.reply({ content: `⏱️ | Loading track **${track.title}**!` });
 }}
-module.exports = musicplay;
+module.exports.music = musicplay;
 //TODO add now playing or perhaps fix it
 console.log("Music-Logic: OK")
