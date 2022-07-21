@@ -1,7 +1,7 @@
-const music = require('../../music-logic.js');
+const skip = require('../../music-logic.js').skip;
 module.exports = {
     callback: (message, ...args) => {
-        console.log("play: ",args);
-        
+        console.log("skip: ",args);
+        skip(message);
     }
 }

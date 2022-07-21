@@ -33,6 +33,17 @@ if (!track) return await message.reply({ content: `❌ | Track **${query}** not 
 queue.play(track);
 return await message.reply({ content: `⏱️ | Loading track **${track.title}**!` });
 }}
+
+//skip
+function skip (message) {
+    if (message !== undefined){
+    if(!message.member.voice.channel) return message.channel.send("Please connect to a voice channel!");
+    const q = player.getQueue(message.guild);
+    return q.skip()
+    }
+}
+
 module.exports.music = musicplay;
+module.exports.skip = skip;
 //TODO add now playing or perhaps fix it
 console.log("Music-Logic: OK")
