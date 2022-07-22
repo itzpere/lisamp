@@ -1,14 +1,12 @@
 require("discord-player/smoothVolume");
 const { Client, Intents } = require ('discord.js');
 const { Reverbnation, Lyrics } = require("@discord-player/extractor");
-const downloader = require("@discord-player/downloader").Downloader;
 const { Player } = require("discord-player");
 const playdl = require("play-dl");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const player = new Player(client);
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
-player.use("YOUTUBE_DL", downloader);
 
 //on event commands
 player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
