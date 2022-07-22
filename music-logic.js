@@ -41,7 +41,7 @@ const track = await player.search(query, {
 if (!track) return await message.reply({ content: `❌ | Track **${query}** not found!` });
 
 queue.play(track);
-return await message.reply({ content: `⏱️ | Loading track **${track.title}**!` });
+return;
 }}
 
 //skip
