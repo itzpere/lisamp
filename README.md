@@ -1,5 +1,5 @@
 # lisamp
-Private discord bot for CrnaZemlja
+Private discord bot for CrnaZemlja<br>
 Add to server : https://discord.com/api/oauth2/authorize?client_id=996836986948157460&permissions=8&scope=bot
 
 ## List of features
