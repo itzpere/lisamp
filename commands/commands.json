@@ -21,11 +21,11 @@
     },
     "play" : {
         "Description" : "Plays the song.",
-        "Usage" : "play/p {song name / song link}"
+        "Usage" : "play / p {song name / song link}"
     },
     "skip" : {
         "Description" : "Skips the currently playing song.",
-        "Usage" : "skip/s"
+        "Usage" : "skip / s"
     },
     "info" : {
         "Description" : "Shows you some info about the bot.",
@@ -42,5 +42,9 @@
     "lyrics" : {
         "Description" : "Shows the lyrics of currently playing song",
         "Usage" : "lyrics"
+    },
+    "queue" : {
+        "Description" : "Shows what's playing next",
+        "Usage" : "queue / q"
     }
 }

@@ -95,11 +95,20 @@ function lyrics(message){
     .catch(message.channel.send(`❌ | Unable to find any lyrics for ${queue.current.title}`),console.error);
     }
 }
+function queue (message) {
+    if(message !== undefined){
+        const queue = player.getQueue(message.guild)
+        if (queue !== undefined){
+            message.channel.send(queue.toString());
+        }
+    }
+}
 module.exports.music = musicplay;
 module.exports.skip = skip;
 module.exports.clear = clear;
 module.exports.leave = leave;
 module.exports.pause = pause;
 module.exports.lyrics = lyrics;
+module.exports.queue = queue;
 //TODO add now playing or perhaps fix it
 console.log("Music-Logic: OK")
