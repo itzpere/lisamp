@@ -1,7 +1,7 @@
 const { token, prefix } = require('./config.json');
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: 3243773 });
-let music = require('./music-logic.js')
+const music = require('./music-logic.js')
 
 music();
 

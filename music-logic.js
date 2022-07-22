@@ -1,8 +1,10 @@
 require("discord-player/smoothVolume");
 const { Client, Intents } = require ('discord.js');
 const { Player } = require("discord-player");
+const playdl = require("play-dl");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const player = new Player(client);
+
 
 module.exports = () =>{
     player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
@@ -18,9 +20,13 @@ async function musicplay(message, song){
         const query = song;
         const queue = player.createQueue(message.guild, {
             metadata: {
-            channel: message.member.voice.channel
-        }
-    });
+            channel: message.member.voice.channel},
+            async onBeforeCreateStream(track, source, _queue) {
+                if (source === "youtube") {
+                    return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
+                }
+            }
+        });
     
     try {
     if (!queue.connection) await queue.connect(message.member.voice.channel);
