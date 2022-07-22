@@ -46,6 +46,10 @@ const track = await player.search(query, {
 }).then(x => x.tracks[0]);
 if (!track) return await message.reply({ content: `❌ | Track **${query}** not found!` });
 queue.play(track);
+message.channel.send(`⏱️ | Loading track **${track.title}**!`).then(msg => {
+    setTimeout(() => msg.delete(), 5000)
+  })
+  .catch(console.error);
 if (queue.current !== undefined){message.channel.send({ content: `👌 | Adding **${track.title}** to q` })}
 return;
 }}
