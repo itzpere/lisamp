@@ -1,12 +1,14 @@
 require("discord-player/smoothVolume");
 const { Client, Intents } = require ('discord.js');
 const { Reverbnation, Lyrics } = require("@discord-player/extractor");
+const downloader = require("@discord-player/downloader").Downloader;
 const { Player } = require("discord-player");
 const playdl = require("play-dl");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const player = new Player(client);
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
+player.use("YOUTUBE_DL", downloader);
 
 //on event commands
 player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
@@ -26,8 +28,10 @@ async function musicplay(message, song){
             metadata: {
             channel: message.channel},
             async onBeforeCreateStream(track, source, _queue) {
+                if (source === "youtube" || source === "soundcloud"){
                     return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
             }
+        }
         });
     
     try {
@@ -82,7 +86,7 @@ function lyrics(message){
     if (queue !== undefined)
     lyricsClient.search(queue.current.title)
     .then(x => message.channel.send(x.lyrics))
-    .catch(console.error);
+    .catch(message.channel.send(`❌ | Unable to find any lyrics for ${queue.current.title}`),console.error);
     }
 }
 module.exports.music = musicplay;

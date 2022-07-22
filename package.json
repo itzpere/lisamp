@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/itzpere/lisamp#readme",
   "dependencies": {
+    "@discord-player/downloader": "^3.0.1",
     "@discord-player/extractor": "^3.0.2",
     "@discordjs/builders": "^0.15.0",
     "@discordjs/opus": "^0.8.0",
