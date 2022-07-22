@@ -10,8 +10,8 @@ player.use("reverbnation", Reverbnation);
 
 //on event commands
 player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
-player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- ) | i quit`))
-player.on("queueEnd", (queue) => queue.metadata.channel.send(`＼(-_- )   | I quit`))
+player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
+player.on("queueEnd", (queue) => queue.metadata.channel.send(`＼(-_- )   I quit`))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
 
 //variables
@@ -77,6 +77,7 @@ function leave(message) {
     queue.destroy();
     }
 }
+//pause
 function pause(message) {
     if(message !== undefined){
     const queue = player.getQueue(message.guild)
@@ -84,6 +85,7 @@ function pause(message) {
     queue.setPaused(pausebool)
     }
 }
+//lyrics
 function lyrics(message){
     if(message !== undefined){
     const queue = player.getQueue(message.guild)

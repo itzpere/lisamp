@@ -1,7 +1,7 @@
 const fs = require('fs');
 const getFiles = require('./get-files');
 const { prefix } = require('./config.json');
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, Intents} = require('discord.js');
 const client = new Client({ intents: 3243773 });
 const suffix = ".js"
 
