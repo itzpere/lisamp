@@ -1,7 +1,7 @@
 {
   "name": "lisamp",
-  "version": "0.0.1",
-  "description": "Music bot for discord",
+  "version": "0.1.0",
+  "description": "Private bot for CrnaZemlja",
   "main": "index.js",
   "scripts": {
     "test": "test"
