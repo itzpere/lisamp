@@ -12,6 +12,9 @@ player.use("YOUTUBE_DL", downloader);
 
 //on event commands
 player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
+player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- ) | i quit`))
+player.on("queueEnd", (queue) => queue.metadata.channel.send(`＼(-_- )   | I quit`))
+player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
 
 //variables
 let pausebool = false; 
@@ -50,7 +53,6 @@ message.channel.send(`⏱️ | Loading track **${track.title}**!`).then(msg => {
     setTimeout(() => msg.delete(), 5000)
   })
   .catch(console.error);
-if (queue.current !== undefined){message.channel.send({ content: `👌 | Adding **${track.title}** to q` })}
 return;
 }}
 
