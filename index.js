@@ -1,4 +1,4 @@
-const { token, prefix } = require('./config.json');
+const { token } = require('./config.json');
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: 3243773 });
 
