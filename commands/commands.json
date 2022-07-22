@@ -1,32 +1,42 @@
 {
     "clear" : {
-        "Description" : "Clears the music q."
+        "Description" : "Clears the music q.",
+        "Usage" : "clear"
     },
     "help" : {
-        "Description" : "Helps you understand the commands."
+        "Description" : "Helps you understand the commands.",
+        "Usage" : "help [command]"
     },
     "leave" : {
-        "Description" : "Leaves the voice channel."
+        "Description" : "Leaves the voice channel.",
+        "Usage" : "leave"
     },
     "ping" : {
-        "Description" : "Responds with pong!"
+        "Description" : "Responds with pong!",
+        "Usage" : "ping"
     },
     "server" : {
-        "Description" : "Writes the server info."
+        "Description" : "Writes the server info.",
+        "Usage" : "server"
     },
     "play" : {
-        "Description" : "Plays the song."
+        "Description" : "Plays the song.",
+        "Usage" : "play/p {song name / song link}"
     },
     "skip" : {
-        "Description" : "Skips the currently playing song."
+        "Description" : "Skips the currently playing song.",
+        "Usage" : "skip/s"
     },
     "info" : {
-        "Description" : "Shows you some info about the bot."
+        "Description" : "Shows you some info about the bot.",
+        "Usage" : "info"
     },
     "skipall" : {
-        "Description" : "Skips all songs and leaves the voice"
+        "Description" : "Skips all songs and leaves the voice",
+        "Usage" : "skipall"
     },
     "pause" : {
-        "Description" : "Pauses the current q"
+        "Description" : "Pauses the current q",
+        "Usage" : "pause"
     }
 }

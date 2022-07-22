@@ -1,4 +1,5 @@
 const data = require('../commands.json');
+const {prefix} = require('../../config.json');
 module.exports = {
     callback: (message, ...args) => {
         console.log("help: ",args);
@@ -6,11 +7,9 @@ module.exports = {
         var arg = args.shift();
         if (arg !== undefined)
         {
-            console.log("arg is not null: ", arg);
             for(var index in data) { 
                 if (index == arg){
-                console.log(index, " is ", arg);
-                message.reply(`**Name**: ${arg}\n**Description**: ${data[arg]?.Description}`);
+                message.reply(`**Name**: ${arg}\n**Description**: ${data[arg]?.Description}\n**Usage**: ${prefix}${data[arg]?.Usage}`);
                 }
             }
         }

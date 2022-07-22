@@ -16,7 +16,6 @@ let pausebool = false;
 async function musicplay(message, song){
     if (message !== undefined){
         if (song == undefined || song === ""){return message.reply("❌ | Please specify the song")};
-        console.log("musicplay function is called");
         if(!message.member.voice.channel) return message.channel.send("Please connect to a voice channel!");
         const query = song;
         const queue = player.createQueue(message.guild, {
