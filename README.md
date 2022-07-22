@@ -7,7 +7,7 @@ Add to server : https://discord.com/api/oauth2/authorize?client_id=9968369869481
 - interactions with bot
 - support for server
 
-## planned features
+## Planned features
 - browser extention that will be able to detect song you are playing on your browser and play it on discord bot
 - ultimate bots for music (There is one main bot but for playing music he will be creating sub bots that will join the channel and when done will destroy them self *quite dramatic*)
 

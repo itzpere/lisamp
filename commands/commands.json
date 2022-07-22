@@ -38,5 +38,9 @@
     "pause" : {
         "Description" : "Pauses the current q",
         "Usage" : "pause"
+    },
+    "lyrics" : {
+        "Description" : "Shows the lyrics of currently playing song",
+        "Usage" : "lyrics"
     }
 }
