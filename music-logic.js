@@ -4,12 +4,8 @@ const { Player } = require("discord-player");
 const playdl = require("play-dl");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const player = new Player(client);
-
-
-module.exports = () =>{
-    player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
-    console.log("currently playing loaded");
-}
+//on event commands
+player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
 
 //play
 async function musicplay(message, song){
@@ -22,9 +18,7 @@ async function musicplay(message, song){
             metadata: {
             channel: message.channel},
             async onBeforeCreateStream(track, source, _queue) {
-                if (source === "youtube") {
                     return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
-                }
             }
         });
     
@@ -39,8 +33,9 @@ const track = await player.search(query, {
     requestedBy: message.user
 }).then(x => x.tracks[0]);
 if (!track) return await message.reply({ content: `❌ | Track **${query}** not found!` });
-
+console.log("current q is: ", queue.current);
 queue.play(track);
+if (queue.current !== undefined){message.send({ content: `🙆 | Adding ${track.title} to q` })}
 return;
 }}
 
@@ -60,7 +55,7 @@ function clear(message) {
     queue.clear();
     }
 }
-//leave, skipall
+//leave, skipall. stop
 function leave(message) {
     if(message!== undefined){
     const queue = player.getQueue(message.guild)
