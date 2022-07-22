@@ -7,6 +7,11 @@ const player = new Player(client);
 //on event commands
 player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
 
+//variables
+let pausebool = false; 
+
+
+
 //play
 async function musicplay(message, song){
     if (message !== undefined){
@@ -33,9 +38,8 @@ const track = await player.search(query, {
     requestedBy: message.user
 }).then(x => x.tracks[0]);
 if (!track) return await message.reply({ content: `❌ | Track **${query}** not found!` });
-console.log("current q is: ", queue.current);
 queue.play(track);
-if (queue.current !== undefined){message.send({ content: `🙆 | Adding ${track.title} to q` })}
+if (queue.current !== undefined){message.channel.send({ content: `👌 | Adding **${track.title}** to q` })}
 return;
 }}
 
@@ -55,17 +59,24 @@ function clear(message) {
     queue.clear();
     }
 }
-//leave, skipall. stop
+//leave, skipall
 function leave(message) {
     if(message!== undefined){
     const queue = player.getQueue(message.guild)
     queue.destroy();
     }
 }
-
+function pause(message) {
+    if(message !== undefined){
+    const queue = player.getQueue(message.guild)
+    pausebool = !pausebool;
+    queue.setPaused(pausebool)
+    }
+}
 module.exports.music = musicplay;
 module.exports.skip = skip;
 module.exports.clear = clear;
 module.exports.leave = leave;
+module.exports.pause = pause;
 //TODO add now playing or perhaps fix it
 console.log("Music-Logic: OK")

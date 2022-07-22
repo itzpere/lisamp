@@ -22,5 +22,11 @@
     },
     "info" : {
         "Description" : "Shows you some info about the bot."
+    },
+    "skipall" : {
+        "Description" : "Skips all songs and leaves the voice"
+    },
+    "pause" : {
+        "Description" : "Pauses the current q"
     }
 }
