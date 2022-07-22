@@ -22,7 +22,7 @@ But before you run the bot you will need to create a **config.json** file in mai
    "suffix"  : ".js"
 }
 ```
-In development
 
 ## Version
 0.1.0
+*In development*
