@@ -20,7 +20,7 @@ async function musicplay(message, song){
         const query = song;
         const queue = player.createQueue(message.guild, {
             metadata: {
-            channel: message.member.voice.channel},
+            channel: message.channel},
             async onBeforeCreateStream(track, source, _queue) {
                 if (source === "youtube") {
                     return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
@@ -53,7 +53,15 @@ function skip (message) {
     return q.skip() 
 }
 }
-function skipall(message) {
+//clear
+function clear(message) {
+    if(message!== undefined){
+    const queue = player.getQueue(message.guild)
+    queue.clear();
+    }
+}
+//leave, skipall
+function leave(message) {
     if(message!== undefined){
     const queue = player.getQueue(message.guild)
     queue.destroy();
@@ -62,6 +70,7 @@ function skipall(message) {
 
 module.exports.music = musicplay;
 module.exports.skip = skip;
-module.exports.skipall = skipall;
+module.exports.clear = clear;
+module.exports.leave = leave;
 //TODO add now playing or perhaps fix it
 console.log("Music-Logic: OK")
