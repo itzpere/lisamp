@@ -53,8 +53,15 @@ function skip (message) {
     return q.skip() 
 }
 }
+function skipall(message) {
+    if(message!== undefined){
+    const queue = player.getQueue(message.guild)
+    queue.destroy();
+    }
+}
 
 module.exports.music = musicplay;
 module.exports.skip = skip;
+module.exports.skipall = skipall;
 //TODO add now playing or perhaps fix it
 console.log("Music-Logic: OK")
