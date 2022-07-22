@@ -12,4 +12,4 @@ Add to server : https://discord.com/api/oauth2/authorize?client_id=9968369869481
 
 In development
 
-version : 0.0.5
+version : 0.1.0
