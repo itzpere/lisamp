@@ -24,5 +24,4 @@ But before you run the bot you will need to create a **config.json** file in mai
 ```
 
 ## Version
-0.1.0
-*In development*
+0.1.0 *In development*
