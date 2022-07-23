@@ -46,5 +46,9 @@
     "queue" : {
         "Description" : "Shows what's playing next",
         "Usage" : "queue / q"
+    },
+    "repeat" : {
+        "Description" : "Sets if you want your songs to reapat",
+        "Usage" : "repeat [option]\nOFF = 0\nTRACK = 1\nQUEUE = 2\nAUTOPLAY = 3"
     }
 }

@@ -13,19 +13,15 @@ module.exports = {
         switch (arg){
             case "off":
                 num = 0
-                message.channel.send("repeat is set to off")
                 break;
             case "track":
-                num = 1
-                message.channel.send("repeat is set to track")
+                num = 1;
                 break;
             case "queue":
                 num = 2
-                message.channel.send("repeat is set to queue")
                 break;
             case "autoplay":
                 num = 3
-                message.channel.send("repeat is set to autoplay")
                 break;
             default:
                 howtouse();

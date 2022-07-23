@@ -105,14 +105,16 @@ function queue (message) {
 //repeat
 function repeat (message, arg) {
     console.log("repeat is called")
-    if(message !== undefined){
+    if(message != undefined){
         const queue = player.getQueue(message.guild)
-        console.log(arg)
-        if (arg !== undefined)
+        if (arg != undefined)
+            if (queue == undefined){return message.channel.send("❌ | you need to play something")}
+            if(arg == "current"){return message.channel.send(`Repeat is currently set to **${queue.repeatMode}**`)}
         queue.setRepeatMode(arg);
-        //console.log(queue.repeatMode);
+        message.channel.send(`✅ | repeat is set to ${queue.repeatMode}`)
     }
 }
+//exports functions for commands
 module.exports.music = musicplay;
 module.exports.skip = skip;
 module.exports.clear = clear;
@@ -121,5 +123,5 @@ module.exports.pause = pause;
 module.exports.lyrics = lyrics;
 module.exports.queue = queue;
 module.exports.repeat = repeat;
-//TODO add now playing or perhaps fix it
+
 console.log("Music-Logic: OK")
