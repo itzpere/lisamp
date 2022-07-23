@@ -126,11 +126,6 @@ function repeat (message, arg) {
         message.channel.send(`✅ | repeat is set to ${queue.repeatMode}`)
     }
 }
-//join
-function join (message) {
-    const queue = player.getQueue(message.guild)
-    console.log(queue)
-}
 //exports functions for commands
 module.exports = {
     music : musicplay,
@@ -141,8 +136,7 @@ module.exports = {
     pause : pause,
     queue : queue,
     repeat : repeat,
-    check : check,
-    join : join
+    check : check
 }
 
 console.log("Music-Logic: OK")
