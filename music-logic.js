@@ -115,13 +115,14 @@ function repeat (message, arg) {
     }
 }
 //exports functions for commands
-module.exports.music = musicplay;
-module.exports.skip = skip;
-module.exports.clear = clear;
-module.exports.leave = leave;
-module.exports.pause = pause;
-module.exports.lyrics = lyrics;
-module.exports.queue = queue;
-module.exports.repeat = repeat;
+module.exports = {
+    music : musicplay,
+    skip : skip,
+    clear : clear,
+    leave : leave,
+    pause : pause,
+    queue : queue,
+    repeat : repeat
+}
 
 console.log("Music-Logic: OK")
