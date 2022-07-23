@@ -2,6 +2,7 @@ require("discord-player/smoothVolume");
 const { Client, Intents } = require ('discord.js');
 const { Reverbnation, Lyrics } = require("@discord-player/extractor");
 const { Player } = require("discord-player");
+const { prefix } = require('./config.json');
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
@@ -12,7 +13,6 @@ player.use("reverbnation", Reverbnation);
 //on event commands
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
 player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
-player.on("queueEnd", (queue) => queue.metadata.channel.send(`＼(-_- )   I quit`))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
 
 //variables
@@ -31,17 +31,17 @@ async function musicplay(message, song){
     if (message !== undefined){
         if (song == undefined || song === ""){return message.send("❌ | Please specify the song")};
         if(!check(message)) return;
+        if(player.getQueue(message.guild) != undefined && message.guild.me.voice.channel == null) {player.getQueue(message.guild).destroy()}
         const query = song;
         const queue = player.createQueue(message.guild, {
             metadata: {
-            channel: message.channel},
-            async onBeforeCreateStream(track, source, _queue) {
-                if (source === "youtube" || source === "soundcloud"){
-                    return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
-            }
-        }
-        });
-    
+                channel: message.channel},
+                async onBeforeCreateStream(track, source, _queue) {
+                    if (source === "youtube" || source === "soundcloud"){
+                        return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
+                    }
+                }
+            });
     try {
     if (!queue.connection) await queue.connect(message.member.voice.channel);
 } catch {
@@ -116,7 +116,6 @@ function queue (message) {
 }
 //repeat
 function repeat (message, arg) {
-    console.log("repeat is called")
     if(message != undefined){
         
         const queue = player.getQueue(message.guild)
@@ -126,6 +125,11 @@ function repeat (message, arg) {
         queue.setRepeatMode(arg);
         message.channel.send(`✅ | repeat is set to ${queue.repeatMode}`)
     }
+}
+//join
+function join (message) {
+    const queue = player.getQueue(message.guild)
+    console.log(queue)
 }
 //exports functions for commands
 module.exports = {
@@ -137,7 +141,8 @@ module.exports = {
     pause : pause,
     queue : queue,
     repeat : repeat,
-    check : check
+    check : check,
+    join : join
 }
 
 console.log("Music-Logic: OK")

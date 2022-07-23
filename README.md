@@ -13,7 +13,7 @@ Add to server : https://discord.com/api/oauth2/authorize?client_id=9968369869481
 
 
 ## How to use
-To use the bot you will need **nodeJS 18.6.0** and then after cloning the repository you run <br> `npm install` <br> which will install all dependencies and i personally use **pm2** for hosting the bot. You can install it with <br>`npm i pm2 -g` (-g stands for global so if you want it to be only internal package you can remove it) <br> Start the bot with <br>`pm2 start index.js`<br>
+To use the bot you will need **nodeJS 16.6.0 or higher** and then after cloning the repository you run <br> `npm install` <br> which will install all dependencies and i personally use **pm2** for hosting the bot. You can install it with <br>`npm i pm2 -g` (-g stands for global so if you want it to be only internal package you can remove it) <br> Start the bot with <br>`pm2 start index.js`<br>
 But before you run the bot you will need to create a `config.json` file in main repo which will indule the following code:
 ```json
 {
