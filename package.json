@@ -1,6 +1,6 @@
 {
   "name": "lisamp",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "Discord js Private bot for CrnaZemlja",
   "main": "index.js",
   "scripts": {
