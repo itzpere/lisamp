@@ -17,8 +17,6 @@ player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Adde
 //variables
 let pausebool = false; 
 
-
-
 //play
 async function musicplay(message, song){
     if (message !== undefined){
@@ -95,12 +93,24 @@ function lyrics(message){
     .catch(message.channel.send(`❌ | Unable to find any lyrics for ${queue.current.title}`),console.error);
     }
 }
+//queue
 function queue (message) {
     if(message !== undefined){
         const queue = player.getQueue(message.guild)
         if (queue !== undefined){
             message.channel.send(queue.toString());
         }
+    }
+}
+//repeat
+function repeat (message, arg) {
+    console.log("repeat is called")
+    if(message !== undefined){
+        const queue = player.getQueue(message.guild)
+        console.log(arg)
+        if (arg !== undefined)
+        queue.setRepeatMode(arg);
+        //console.log(queue.repeatMode);
     }
 }
 module.exports.music = musicplay;
@@ -110,5 +120,6 @@ module.exports.leave = leave;
 module.exports.pause = pause;
 module.exports.lyrics = lyrics;
 module.exports.queue = queue;
+module.exports.repeat = repeat;
 //TODO add now playing or perhaps fix it
 console.log("Music-Logic: OK")
