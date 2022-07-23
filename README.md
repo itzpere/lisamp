@@ -18,7 +18,6 @@ But before you run the bot you will need to create a `config.json` file in main 
 ```json
 {
    "token"   : "YourBotToken",
-   "guildId" : "YourGuildId",
    "prefix"  : "!"
 }
 ```
