@@ -1,7 +1,7 @@
 {
-  "name": "lisamp",
-  "version": "0.1.0",
-  "description": "Private bot for CrnaZemlja",
+  "name": "LisAmp",
+  "version": "0.1.5",
+  "description": "Discord js Private bot for CrnaZemlja",
   "main": "index.js",
   "scripts": {
     "test": "test"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/itzpere/lisamp"
   },
   "keywords": [
-    "lisamp"
+    "LisAmp"
   ],
   "author": "itzpere",
   "license": "ISC",
