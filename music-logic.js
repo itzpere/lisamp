@@ -3,13 +3,14 @@ const { Client, Intents } = require ('discord.js');
 const { Reverbnation, Lyrics } = require("@discord-player/extractor");
 const { Player } = require("discord-player");
 const playdl = require("play-dl");
+const embeds = require("./embeds.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const player = new Player(client);
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
 
 //on event commands
-player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
+player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
 player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
 player.on("queueEnd", (queue) => queue.metadata.channel.send(`＼(-_- )   I quit`))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
