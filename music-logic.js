@@ -18,11 +18,19 @@ player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Adde
 //variables
 let pausebool = false; 
 
+//check
+function check (message){
+    if(!message.member.voice.channel) {message.reply("❌ | Please connect to a voice channel!"); return false;}
+    if (message.guild.me.voice.channel != null) {if (message.guild.me.voice.channel != message.member.voice.channel) {
+        message.channel.send("❌ | You need to be connected to my voice") 
+        return false;} else return true;} return true;
+}
+
 //play
 async function musicplay(message, song){
     if (message !== undefined){
-        if (song == undefined || song === ""){return message.reply("❌ | Please specify the song")};
-        if(!message.member.voice.channel) return message.channel.send("Please connect to a voice channel!");
+        if (song == undefined || song === ""){return message.send("❌ | Please specify the song")};
+        if(!check(message)) return;
         const query = song;
         const queue = player.createQueue(message.guild, {
             metadata: {
@@ -56,7 +64,7 @@ return;
 //skip
 function skip (message) {
     if (message !== undefined){
-    if(!message.member.voice.channel) return message.channel.send("Please connect to a voice channel!");
+    if(!check(message)) return;
     const q = player.getQueue(message.guild);
     message.reply(`⏭️ | Skipped track **${q.current}**`)
     return q.skip() 
@@ -65,6 +73,7 @@ function skip (message) {
 //clear
 function clear(message) {
     if(message!== undefined){
+    if(!check(message)) return;
     const queue = player.getQueue(message.guild)
     queue.clear();
     }
@@ -72,6 +81,7 @@ function clear(message) {
 //leave, skipall
 function leave(message) {
     if(message!== undefined){
+    if(!check(message)) return;
     const queue = player.getQueue(message.guild)
     queue.destroy();
     }
@@ -79,6 +89,7 @@ function leave(message) {
 //pause
 function pause(message) {
     if(message !== undefined){
+    if(!check(message)) return;
     const queue = player.getQueue(message.guild)
     pausebool = !pausebool;
     queue.setPaused(pausebool)
@@ -107,6 +118,7 @@ function queue (message) {
 function repeat (message, arg) {
     console.log("repeat is called")
     if(message != undefined){
+        
         const queue = player.getQueue(message.guild)
         if (arg != undefined)
             if (queue == undefined){return message.channel.send("❌ | you need to play something")}
@@ -121,9 +133,11 @@ module.exports = {
     skip : skip,
     clear : clear,
     leave : leave,
+    lyrics : lyrics,
     pause : pause,
     queue : queue,
-    repeat : repeat
+    repeat : repeat,
+    check : check
 }
 
 console.log("Music-Logic: OK")

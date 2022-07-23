@@ -6,12 +6,11 @@ function playing (queue, track){
 		.setTitle(track.title)
 		.setURL(track.url)
 		.setAuthor({ name: track.author })
-		.setThumbnail('https://cdn.discordapp.com/app-icons/996836986948157460/0d45bfa4728b32e3b8f3e4c71da8fa84.png?size=256')
+		.setThumbnail(track.thumbnail)
 		.addFields(
 			{ name: 'Time', value: track.duration.toString(), inline: true },
 			{ name: 'Views', value: track.views.toString(), inline: true },
 		)
-		.setImage(track.thumbnail)
 		.setTimestamp()
 		.setFooter({ text: track.id, iconURL: 'https://cdn.discordapp.com/app-icons/996836986948157460/0d45bfa4728b32e3b8f3e4c71da8fa84.png?size=256' });
 	queue.metadata.channel.send({embeds: [playing]})
