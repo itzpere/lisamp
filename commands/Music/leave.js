@@ -1,4 +1,4 @@
-const leave = require('../../music-logic.js').leave;
+const { leave } = require('../../music-logic.js');
 module.exports = {
     callback: (message, ...args) => {
         console.log("leave: ",args);

@@ -30,7 +30,7 @@ function check (message){
 async function musicplay(message, song){
     if (message !== undefined){
         if (song == undefined || song === ""){return message.send("❌ | Please specify the song")};
-        if(!check(message)) return;
+        if(!check(message)) { return;}
         if(player.getQueue(message.guild) != undefined && message.guild.me.voice.channel == null) {player.getQueue(message.guild).destroy()}
         const query = song;
         const queue = player.createQueue(message.guild, {
@@ -52,12 +52,17 @@ async function musicplay(message, song){
 const track = await player.search(query, {
     requestedBy: message.user
 }).then(x => x.tracks[0]);
-if (!track) return await message.reply({ content: `❌ | Track **${query}** not found!` });
+
+if (!track){return await message.reply({ content: `❌ | Track **${query}** not found!` });}
 message.channel.send(`⏱️ | Loading track **${track.title}**!`).then(msg => {
     setTimeout(() => msg.delete(), 5000)
   })
   .catch(console.error);
+
 queue.play(track);
+if (queue.current == undefined){
+    await new Promise(resolve => setTimeout(resolve, 5000));
+}
 return;
 }}
 
@@ -83,7 +88,7 @@ function leave(message) {
     if(message!== undefined){
     if(!check(message)) return;
     const queue = player.getQueue(message.guild)
-    if (!queue)
+    if (queue)
     queue.destroy();
     }
 }
@@ -127,6 +132,16 @@ function repeat (message, arg) {
         message.channel.send(`✅ | repeat is set to ${queue.repeatMode}`)
     }
 }
+function jump (message, args) {
+    if(message !== undefined){
+        if(!check(message)) return;
+        arg = args.shift()
+        const queue = player.getQueue(message.guild)
+        console.log(queue.toJSON())
+        try {queue.jump(Number(arg))}
+        catch {message.reply("enter the right number")}
+    }
+}
 //exports functions for commands
 module.exports = {
     music : musicplay,
@@ -137,7 +152,8 @@ module.exports = {
     pause : pause,
     queue : queue,
     repeat : repeat,
-    check : check
+    check : check,
+    jump : jump
 }
 
 console.log("Music-Logic: OK")
