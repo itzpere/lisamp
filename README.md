@@ -23,4 +23,4 @@ But before you run the bot you will need to create a `config.json` file in main 
 ```
 And lastly when you want to update the bot to the newer version you can run <br> `git reset --hard HEAD` <br>`git pull`<br> and you wont need to do the setup process again, just run `npm install` and you are good to go.
 ## Version
-0.1.7 *In development*
+0.2.0 *In development*
