@@ -110,8 +110,8 @@ function lyrics(message){
     const queue = player.getQueue(message.guild)
     if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
     lyricsClient.search(queue.current.title)
-    .then(x => message.channel.send(x.lyrics))
-    .catch(message.channel.send(`❌ | Unable to find any lyrics for ${queue.current.title}`),console.error);
+    .then(x => {if(x==null){message.channel.send(`❌ | Unable to find any lyrics for ${queue.current.title}`)}else{message.channel.send(x.lyrics)}})
+    .catch(console.error);
     }
 }
 //queue
