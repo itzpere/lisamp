@@ -1,4 +1,4 @@
-const jump = require('../../music-logic.js').jump;
+const { jump } = require('../../music-logic.js');
 module.exports = {
     callback: (message, ...args) => {
         console.log("jump: ",args);

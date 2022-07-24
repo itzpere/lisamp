@@ -1,5 +1,4 @@
-const repeat = require('../../music-logic.js').repeat;
-const check = require('../../music-logic.js').check;
+const { repeat, check } = require('../../music-logic.js');
 const { prefix } = require('../../config.json');
 module.exports = {
     callback: (message, ...args) => {

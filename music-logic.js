@@ -123,7 +123,6 @@ function queue (message) {
 //repeat
 function repeat (message, arg) {
     if(message != undefined){
-        
         const queue = player.getQueue(message.guild)
         if (arg != undefined)
             if (queue == undefined){return message.channel.send("❌ | you need to play something")}
@@ -142,6 +141,15 @@ function jump (message, args) {
         catch {message.reply(`Enter the valid number\nType: **${prefix}q** to display queue`)}
     }
 }
+//back
+function back (message) {
+    if(message !== undefined){
+        if(!check(message)) return;
+        const queue = player.getQueue(message.guild)
+        try {queue.back()}
+        catch{message.reply("❌ | There is no back")}
+    }
+}
 //exports functions for commands
 module.exports = {
     music : musicplay,
@@ -153,7 +161,8 @@ module.exports = {
     queue : queue,
     repeat : repeat,
     check : check,
-    jump : jump
+    jump : jump,
+    back : back
 }
 
 console.log("Music-Logic: OK")

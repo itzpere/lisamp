@@ -1,4 +1,4 @@
-const clear = require('../../music-logic.js').clear;
+const { clear } = require('../../music-logic.js');
 module.exports = {
     callback: (message, ...args) => {
         console.log("clear: ",args);

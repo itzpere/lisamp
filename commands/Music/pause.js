@@ -1,4 +1,4 @@
-const pause = require('../../music-logic.js').pause;
+const { pause } = require('../../music-logic.js');
 module.exports = {
     callback: (message, ...args) => {
         console.log("pause: ",args);

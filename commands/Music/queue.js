@@ -1,4 +1,4 @@
-const queue = require('../../music-logic.js').queue;
+const { queue } = require('../../music-logic.js');
 module.exports = {
     callback: (message, ...args) => {
         console.log("queue: ",args);

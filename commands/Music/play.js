@@ -1,4 +1,4 @@
-const music = require('../../music-logic.js').music;
+const { music } = require('../../music-logic.js');
 let can = true
 module.exports = {
     callback: async (message, ...args) => {
