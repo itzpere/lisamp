@@ -70,6 +70,7 @@ return;
 function skip (message) {
     if (message !== undefined){
     if(!check(message)) return;
+    if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
     const q = player.getQueue(message.guild);
     message.reply(`⏭️ | Skipped track **${q.current}**`)
     return q.skip() 
@@ -79,6 +80,7 @@ function skip (message) {
 function clear(message) {
     if(message!== undefined){
     if(!check(message)) return;
+    if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
     const queue = player.getQueue(message.guild)
     queue.clear();
     }
@@ -96,6 +98,7 @@ function leave(message) {
 function pause(message) {
     if(message !== undefined){
     if(!check(message)) return;
+    if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
     const queue = player.getQueue(message.guild)
     pausebool = !pausebool;
     queue.setPaused(pausebool)
@@ -105,7 +108,7 @@ function pause(message) {
 function lyrics(message){
     if(message !== undefined){
     const queue = player.getQueue(message.guild)
-    if (queue !== undefined)
+    if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
     lyricsClient.search(queue.current.title)
     .then(x => message.channel.send(x.lyrics))
     .catch(message.channel.send(`❌ | Unable to find any lyrics for ${queue.current.title}`),console.error);
@@ -117,6 +120,9 @@ function queue (message) {
         const queue = player.getQueue(message.guild)
         if (queue !== undefined){
             message.channel.send(queue.toString());
+        }
+        else{
+            message.channel.send("❌ | Nothing is playing");
         }
     }
 }
@@ -135,6 +141,7 @@ function repeat (message, arg) {
 function jump (message, args) {
     if(message !== undefined){
         if(!check(message)) return;
+        if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
         arg = args.shift()
         const queue = player.getQueue(message.guild)
         try {queue.jump(Number(arg)-1)}
@@ -145,7 +152,9 @@ function jump (message, args) {
 function back (message) {
     if(message !== undefined){
         if(!check(message)) return;
+        if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
         const queue = player.getQueue(message.guild)
+        console.log(queue)
         try {queue.back()}
         catch{message.reply("❌ | There is no back")}
     }
