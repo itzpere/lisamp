@@ -1,11 +1,11 @@
 const music = require('../../music-logic.js').music;
 module.exports = {
-    callback: (message, ...args) => {
+    callback: async (message, ...args) => {
         console.log("play: ",args);
         let song = "";
         while(args.length){
             song += args.shift() + " ";
         }
-        music(message, song);
+        await music(message, song);
     }
 }

@@ -53,11 +53,11 @@ const track = await player.search(query, {
     requestedBy: message.user
 }).then(x => x.tracks[0]);
 if (!track) return await message.reply({ content: `❌ | Track **${query}** not found!` });
-queue.play(track);
 message.channel.send(`⏱️ | Loading track **${track.title}**!`).then(msg => {
     setTimeout(() => msg.delete(), 5000)
   })
   .catch(console.error);
+queue.play(track);
 return;
 }}
 
@@ -83,6 +83,7 @@ function leave(message) {
     if(message!== undefined){
     if(!check(message)) return;
     const queue = player.getQueue(message.guild)
+    if (!queue)
     queue.destroy();
     }
 }
