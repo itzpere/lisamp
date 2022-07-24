@@ -132,14 +132,14 @@ function repeat (message, arg) {
         message.channel.send(`✅ | repeat is set to ${queue.repeatMode}`)
     }
 }
+//jump
 function jump (message, args) {
     if(message !== undefined){
         if(!check(message)) return;
         arg = args.shift()
         const queue = player.getQueue(message.guild)
-        console.log(queue.toJSON())
-        try {queue.jump(Number(arg))}
-        catch {message.reply("enter the right number")}
+        try {queue.jump(Number(arg)-1)}
+        catch {message.reply(`Enter the valid number\nType: **${prefix}q** to display queue`)}
     }
 }
 //exports functions for commands
