@@ -159,6 +159,16 @@ function back (message) {
         catch{message.reply("❌ | There is no back")}
     }
 }
+//shuffle
+function shuffle(message) {
+    if(message !== undefined){
+        if(!check(message)) return;
+        if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
+        const queue = player.getQueue(message.guild)
+        queue.shuffle()
+        message.channel.send("Shuffled current q")
+    }
+}
 //exports functions for commands
 module.exports = {
     music : musicplay,
@@ -171,7 +181,8 @@ module.exports = {
     repeat : repeat,
     check : check,
     jump : jump,
-    back : back
+    back : back,
+    shuffle : shuffle
 }
 
 console.log("Music-Logic: OK")
