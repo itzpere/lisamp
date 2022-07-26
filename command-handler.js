@@ -21,10 +21,7 @@ for (const command of commandFiles) {
 //console.log("Commands are :\n",commands);
 client.on('messageCreate', (message) => {
     let prefix = getServerData(message, "prefix")
-    if(message.author.bot || !message.content.startsWith(prefix)) {
-        console.log("ch its not bot or no prefix found, prefix: ",prefix)
-        return;
-    }
+    if(message.author.bot || !message.content.startsWith(prefix)) {return;}
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
     if (!commands[commandName]) {

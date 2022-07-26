@@ -17,11 +17,10 @@ To use the bot you will need **nodeJS 16.6.0 or higher** and then after cloning 
 But before you run the bot you will need to create a `config.json` file in main repo which will indule the following code:
 ```json
 {
-   "token"   : "YourBotToken",
-   "prefix"  : "!"
+   "token"   : "YourBotToken"
 }
 ```
 And lastly when you want to update the bot to the newer version you can run <br> `git reset --hard HEAD` <br>`git pull`<br> and you wont need to do the setup process again, just run `npm install` and you are good to go.
 If you want a deaper explenation you can take a look at [wiki](https://github.com/itzpere/lisamp/wiki)
 ## Version
-0.2.1 *In development*
+0.2.3 *In development*

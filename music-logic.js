@@ -2,7 +2,7 @@ require("discord-player/smoothVolume");
 const { Client, Intents } = require ('discord.js');
 const { Reverbnation, Lyrics } = require("@discord-player/extractor");
 const { Player } = require("discord-player");
-const { prefix } = require('./config.json');
+const { getServerData } = require("./ServerData.js")
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
@@ -148,7 +148,7 @@ function jump (message, args) {
         arg = args.shift()
         const queue = player.getQueue(message.guild)
         try {queue.jump(Number(arg)-1)}
-        catch {message.reply(`Enter the valid number\nType: **${prefix}q** to display queue`)}
+        catch {message.reply(`Enter the valid number\nType: **${getServerData(message, "prefix")}q** to display queue`)}
     }
 }
 //back

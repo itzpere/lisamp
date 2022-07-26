@@ -1,8 +1,9 @@
 const { repeat, check } = require('../../music-logic.js');
-const { prefix } = require('../../config.json');
 module.exports = {
     callback: (message, ...args) => {
         console.log("repeat: ",args);
+        const { getServerData } = require("../../ServerData.js")
+        let prefix = getServerData(message, "prefix") 
         let num = 0;
         let arg = ""
         function howtouse(){

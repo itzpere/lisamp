@@ -1,8 +1,9 @@
 module.exports = {
     callback: async (message, ...args) => {
+        console.log("prefix: ",args);
         const fs = require('fs').promises
         const { getServerData } = require("../../ServerData.js")
-        console.log("info: ",args);
+        let prefix = getServerData(message, "prefix")
         
         const setValue = (fn, value) => 
         fs.readFile(fn)
@@ -16,7 +17,7 @@ module.exports = {
         .then(body => fs.writeFile(fn, body))
         .catch(error => console.warn(error))
         
-        if (args == "") {message.channel.send(`Current prefix is: ${getServerData(message, "prefix")}`)}
+        if (args == "") {message.channel.send(`Current prefix is: ${prefix}`)}
         else {
             const newprefix = args.shift()
             const file = getServerData(message, "file")

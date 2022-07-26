@@ -36,11 +36,9 @@ function check (guild) {
             break;
         };
     }
-    //console.log(exist," ",fileL)
     return [exist, fileL];
 }
 function findValue (wyn, file, guild){
-    console.log("findValue called")
     if (wyn == undefined) {return}
     let jsonFile = require(file)
     delete require.cache[require.resolve(file)];
