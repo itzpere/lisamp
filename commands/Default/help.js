@@ -1,8 +1,9 @@
 const data = require('../commands.json');
-const {prefix} = require('../../config.json');
+const { getServerData } = require("../../ServerData.js")
 module.exports = {
     callback: (message, ...args) => {
         console.log("help: ",args);
+        let prefix = getServerData(message.guild, "prefix")
         var txt = "";
         const excluded = [""]; //commands you dont want to show
         var arg = args.shift();

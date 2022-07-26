@@ -1,13 +1,12 @@
 const fs = require('fs');
 const { prefix } = require("./config.json");
-const getFiles = require("./get-files.js")
 
 
 function check (guild, wyn){
+    const getFiles = require("./get-files.js")
     let files = getFiles("./guilds/", ".json")
     let exist = false;
     let fileL = "";
-    console.log(files)
     for (const file of files) {
         const split = file.replace(/\\/g,'/').split('/');
         const fileName = split[split.length - 1].replace(".json",'')
@@ -19,11 +18,15 @@ function check (guild, wyn){
     }
     console.log(exist," ",fileL)
     if (!exist) {addNewGuild(guild)}
-    return findValue(wyn, fileL)
+    if (wyn == "file") {return fileL;}
+    return findValue(wyn, fileL);
 }
 function findValue (wyn, file){
     console.log("findValue called")
-    const jsonFile = require(file)
+    let jsonFile = require(file)
+    delete require.cache[require.resolve(file)];
+    jsonFile = require(file)
+    console.log(jsonFile[wyn]," ", JSON.stringify(jsonFile) )
     return jsonFile[wyn]
 }
 function addNewGuild(guild){

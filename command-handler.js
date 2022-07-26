@@ -1,9 +1,9 @@
-const fs = require('fs');
 const getFiles = require('./get-files');
-const { prefix } = require('./config.json');
+const { getServerData } = require("./ServerData.js")
 const { Client, Intents} = require('discord.js');
 const client = new Client({ intents: 3243773 });
 const suffix = ".js"
+let prefix = "";
 
 module.exports = (client) => {
     const commands = {};
@@ -21,8 +21,9 @@ for (const command of commandFiles) {
     }
 //console.log("Commands are :\n",commands);
 client.on('messageCreate', (message) => {
+    prefix = getServerData(message.guild, "prefix")
     if(message.author.bot || !message.content.startsWith(prefix)) {
-        return;
+        return console.log("bug ",prefix);
     }
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
