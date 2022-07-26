@@ -1,9 +1,9 @@
-const { Console } = require('console');
+const { Message } = require('discord.js');
 const fs = require('fs');
 const defaultTemplate = require("./defaultTemplate.json")
 
-
-function main (guild, wyn){
+function main (message, wyn){
+    let guild = message.guild
     let exist = false;
     let fileL = "";
     let temp = [];
@@ -13,14 +13,13 @@ function main (guild, wyn){
     let foundvalue;
 
     if (!exist) {
-    addNewGuild(guild);
+    addNewGuild(guild)
     console.log("new guild added: ", guild.id);
-    temp = check(guild);
-    exist = temp[0];
-    fileL = temp[1];
-    }
-    if (wyn == "file") {return fileL;}
+    message.channel.send("✅ | Server is now set up");
+    return;
+    }else
     foundvalue = findValue(wyn, fileL, guild);
+    if (wyn == "file") {return fileL;}
     return foundvalue;
 }
 function check (guild) {
@@ -42,13 +41,13 @@ function check (guild) {
 }
 function findValue (wyn, file, guild){
     console.log("findValue called")
+    if (wyn == undefined) {return}
     let jsonFile = require(file)
     delete require.cache[require.resolve(file)];
     jsonFile = require(file)
     if (!jsonFile[wyn])
     {
         let tempi
-        console.log("jsonfile is not")
         for(var index in defaultTemplate) { 
             if (index == wyn){
                 tempi = index
@@ -56,17 +55,15 @@ function findValue (wyn, file, guild){
             }
         }
         jsonFile[tempi] = defaultTemplate[tempi]
-        console.log(jsonFile);
         let stringDT = JSON.stringify(jsonFile);
         fs.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
     }
     try {return jsonFile[wyn]}
     catch {console.error(error)}
 }
-async function addNewGuild(guild){
+function addNewGuild(guild){
     let stringDT = JSON.stringify(defaultTemplate);
-    await fs.promises.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
-    return;
+    fs.promises.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
 }
 module.exports = {
     getServerData : main
