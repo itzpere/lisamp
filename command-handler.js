@@ -22,6 +22,7 @@ for (const command of commandFiles) {
 client.on('messageCreate', (message) => {
     let prefix = getServerData(message.guild, "prefix")
     if(message.author.bot || !message.content.startsWith(prefix)) {
+        console.log("ch its not bot or no prefix found, prefix: ",prefix)
         return;
     }
     const args = message.content.slice(prefix.length).split(/ +/);

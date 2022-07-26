@@ -1,9 +1,9 @@
+const { Console } = require('console');
 const fs = require('fs');
-const { prefix } = require("./config.json");
 const defaultTemplate = require("./defaultTemplate.json")
 
 
-async function main (guild, wyn){
+function main (guild, wyn){
     let exist = false;
     let fileL = "";
     let temp = [];
@@ -13,14 +13,14 @@ async function main (guild, wyn){
     let foundvalue;
 
     if (!exist) {
-    await addNewGuild(guild);
+    addNewGuild(guild);
     console.log("new guild added: ", guild.id);
     temp = check(guild);
     exist = temp[0];
     fileL = temp[1];
     }
     if (wyn == "file") {return fileL;}
-    foundvalue = findValue(wyn, fileL);
+    foundvalue = findValue(wyn, fileL, guild);
     return foundvalue;
 }
 function check (guild) {
@@ -40,20 +40,26 @@ function check (guild) {
     //console.log(exist," ",fileL)
     return [exist, fileL];
 }
-function findValue (wyn, file){
+function findValue (wyn, file, guild){
     console.log("findValue called")
     let jsonFile = require(file)
     delete require.cache[require.resolve(file)];
     jsonFile = require(file)
-    //if (!value)
-    //{
-    //    for(var index in defaultTemplate) { 
-    //        if (index == wyn){
-    //        console.log(index);
-    //        return;
-    //        }
-    //    }
-    //} else
+    if (!jsonFile[wyn])
+    {
+        let tempi
+        console.log("jsonfile is not")
+        for(var index in defaultTemplate) { 
+            if (index == wyn){
+                tempi = index
+                break;
+            }
+        }
+        jsonFile[tempi] = defaultTemplate[tempi]
+        console.log(jsonFile);
+        let stringDT = JSON.stringify(jsonFile);
+        fs.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
+    }
     try {return jsonFile[wyn]}
     catch {console.error(error)}
 }
@@ -66,5 +72,3 @@ module.exports = {
     getServerData : main
 }
 
-//,
-//"test" : true
