@@ -16,12 +16,12 @@ module.exports = {
         .then(body => fs.writeFile(fn, body))
         .catch(error => console.warn(error))
         
-        if (args == undefined) {message.channel.send(`Current prefix is ${getServerData(message.guild, "prefix")}`)}
+        if (args == "") {message.channel.send(`Current prefix is: ${getServerData(message.guild, "prefix")}`)}
         else {
             const newprefix = args.shift()
             const file = getServerData(message.guild, "file")
             await setValue(file, newprefix)
-            
+            message.channel.send(`Prefix changed to: ${newprefix}`);
         }
     }
 }
