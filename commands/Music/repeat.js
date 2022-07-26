@@ -13,22 +13,24 @@ module.exports = {
         arg = args.shift().toLowerCase();
         switch (arg){
             case "off":
-                num = 0
+                num = 0;
+                repeat(message, num);
                 break;
             case "track":
                 num = 1;
+                repeat(message, num);
                 break;
             case "queue":
-                num = 2
+                num = 2;
+                repeat(message, num);
                 break;
             case "autoplay":
-                num = 3
+                num = 3;
+                repeat(message, num);
                 break;
             default:
                 howtouse();
                 break;
             }
-        
-        repeat(message, num);
     }
 }

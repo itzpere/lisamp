@@ -14,6 +14,7 @@ player.use("reverbnation", Reverbnation);
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
 player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
+player.on("channelEmpty", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
 
 //variables
 let pausebool = false; 
@@ -130,11 +131,12 @@ function queue (message) {
 function repeat (message, arg) {
     if(message != undefined){
         const queue = player.getQueue(message.guild)
-        if (arg != undefined)
+        if (arg != undefined) {
             if (queue == undefined){return message.channel.send("❌ | you need to play something")}
             if(arg == "current"){return message.channel.send(`Repeat is currently set to **${queue.repeatMode}**`)}
         queue.setRepeatMode(arg);
         message.channel.send(`✅ | repeat is set to ${queue.repeatMode}`)
+        }
     }
 }
 //jump
