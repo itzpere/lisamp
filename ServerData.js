@@ -1,6 +1,6 @@
 const { Message } = require('discord.js');
 const fs = require('fs');
-const defaultTemplate = require("./defaultTemplate.json")
+const defaultTemplate = require("./guilds/defaultTemplate.json")
 
 function main (message, wyn){
     let guild = message.guild
