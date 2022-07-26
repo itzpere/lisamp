@@ -6,7 +6,9 @@ const { prefix } = require('./config.json');
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
-const player = new Player(client);
+const player = new Player(client, {
+    leaveOnEmpty : true
+});
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
 
@@ -14,8 +16,7 @@ player.use("reverbnation", Reverbnation);
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
 player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
-player.on("channelEmpty", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
-
+player.on("channelEmpty", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit try`))
 //variables
 let pausebool = false; 
 
@@ -25,6 +26,7 @@ function check (message){
     if (message.guild.me.voice.channel != null) {if (message.guild.me.voice.channel != message.member.voice.channel) {
         message.channel.send("❌ | You need to be connected to my voice") 
         return false;} else return true;} return true;
+        
 }
 
 //play
@@ -49,7 +51,6 @@ async function musicplay(message, song){
     queue.destroy();
     return await message.reply({ content: "Could not join your voice channel!", ephemeral: true });
 }
-
 const track = await player.search(query, {
     requestedBy: message.user
 }).then(x => x.tracks[0]);
