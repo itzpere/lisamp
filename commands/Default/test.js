@@ -1,8 +1,8 @@
 
-const { addNG } = require("./serverpref.js")
 module.exports = {
     callback: (message, ...args) => {
+        const { getServerData } = require("../../ServerData.js")
         console.log("test: ",args);
-            addNG(message.guild);
+        console.log(getServerData(message.guild, args.shift()));
     }
 }
