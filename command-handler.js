@@ -1,6 +1,6 @@
 const getFiles = require('./get-files');
 const { getServerData } = require("./ServerData.js")
-const { Client, Intents} = require('discord.js');
+const { Client, Intents, Formatters, Guild} = require('discord.js');
 const client = new Client({ intents: 3243773 });
 const suffix = ".js"
 
@@ -21,7 +21,8 @@ for (const command of commandFiles) {
 //console.log("Commands are :\n",commands);
 client.on('messageCreate', (message) => {
     let prefix = getServerData(message, "prefix")
-    if(message.author.bot || !message.content.startsWith(prefix)) {return;}
+    if (message.mentions.users.has(message.guild.me.id)) {return message.channel.send(`Hi\nCurrent prefix is: **${prefix}**`);return;}
+    if (message.author.bot || !message.content.startsWith(prefix)) {return;}
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
     if (!commands[commandName]) {

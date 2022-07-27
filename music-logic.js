@@ -47,6 +47,9 @@ async function musicplay(message, song){
             });
     try {
     if (!queue.connection) await queue.connect(message.member.voice.channel);
+    let qrepeat = getServerData(message, "repeat"); //sets default repeat
+    queue.setRepeatMode(qrepeat);
+    console.log(`Default repeat is utilized and set to ${qrepeat}`);
 } catch {
     queue.destroy();
     return await message.reply({ content: "Could not join your voice channel!", ephemeral: true });
@@ -136,7 +139,7 @@ function repeat (message, arg) {
             if (queue == undefined){return message.channel.send("❌ | you need to play something")}
             if(arg == "current"){return message.channel.send(`Repeat is currently set to **${queue.repeatMode}**`)}
         queue.setRepeatMode(arg);
-        message.channel.send(`✅ | repeat is set to ${queue.repeatMode}`)
+        message.channel.send(`✅ | repeat for this session is set to ${queue.repeatMode}`)
         }
     }
 }
