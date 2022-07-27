@@ -7,7 +7,7 @@ module.exports = {
         let num = 0;
         let arg = ""
         function howtouse(){
-            message.channel.send(`Right form for using this command is:\n**${prefix}repeat [option]**\nAvailable options: **OFF**, **TRACK**, **QUEUE**, **AUTOPLAY**,**CURRENT**,**DEFAULT**\n*For more info type: **${prefix}help repeat***`)
+            message.channel.send(`Right form for using this command is:\n**${prefix}repeat [option]**\nAvailable options: **OFF**, **TRACK**, **QUEUE**, **AUTOPLAY**,**DEFAULT**\n*For more info type: **${prefix}help repeat***`)
         }
         if(!check(message)) return;
         if (args == undefined || args == "") {return howtouse();}
@@ -29,6 +29,9 @@ module.exports = {
                 num = 3;
                 repeat(message, num);
                 break;
+            default:
+                howtouse();
+                break;
             case "default":
                 switch (args.shift().toLowerCase()){
                     case "off":
@@ -48,9 +51,6 @@ module.exports = {
                         setdefaultrepeat(num);
                         break;
                 }
-            default:
-                howtouse();
-                break;
         }
         function setdefaultrepeat (value) {
         setServerData(message,"repeat",value)
