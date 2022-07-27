@@ -1,26 +1,37 @@
-const { Message } = require('discord.js');
 const fs = require('fs');
 const defaultTemplate = require("./guilds/defaultTemplate.json")
 
-function main (message, wyn){
-    let guild = message.guild
+function main (guild){
     let exist = false;
     let fileL = "";
     let temp = [];
     temp = check(guild);
     exist = temp[0];
     fileL = temp[1];
-    let foundvalue;
-
     if (!exist) {
     addNewGuild(guild)
     console.log("new guild added: ", guild.id);
     message.channel.send("✅ | Server is now set up");
-    return;
+    return false;
     }else
-    foundvalue = findValue(wyn, fileL, guild);
-    if (wyn == "file") {return fileL;}
-    return foundvalue;
+    return fileL;
+}
+function setData (message, wyn, value){
+    let guild = message.guild;
+    fileL = main(guild)
+    if (!fileL) return;
+    let jsonFile = require(file);
+    delete require.cache[require.resolve(file)];
+    jsonFile = require(file);
+    try {
+        jsonFile[wyn] = value
+        console.log(`Value ${value} is set for ${wyn}`)
+        return;
+    }
+    catch {
+        console.error(`Value you tried to edit does not exist: ${wyn}`);
+        return;
+    }
 }
 function check (guild) {
     const getFiles = require("./get-files.js")
@@ -38,8 +49,12 @@ function check (guild) {
     }
     return [exist, fileL];
 }
-function findValue (wyn, file, guild){
+function findValue (message, wyn){
+    let guild = message.guild;
+    file = main(guild)
+    if (!file) return;
     if (wyn == undefined) {return}
+    if (wyn == "file") {return file;}
     let jsonFile = require(file)
     delete require.cache[require.resolve(file)];
     jsonFile = require(file)
@@ -57,13 +72,15 @@ function findValue (wyn, file, guild){
         fs.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
     }
     try {return jsonFile[wyn]}
-    catch {console.error(error)}
+    catch {console.error(error);return;}
+    
 }
 function addNewGuild(guild){
     let stringDT = JSON.stringify(defaultTemplate);
     fs.promises.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
 }
 module.exports = {
-    getServerData : main
+    getServerData : findValue,
+    setServerData : setData
 }
 

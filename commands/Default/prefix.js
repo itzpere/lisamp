@@ -9,7 +9,6 @@ module.exports = {
         fs.readFile(fn)
         .then(body => JSON.parse(body))
         .then(json => {
-            // manipulate your data here
             json.prefix = value
             return json
         })
@@ -17,7 +16,7 @@ module.exports = {
         .then(body => fs.writeFile(fn, body))
         .catch(error => console.warn(error))
         
-        if (args == "") {message.channel.send(`Current prefix is: ${prefix}`)}
+        if (args == "") {message.channel.send(`Current prefix is: **${prefix}**`)}
         else {
             const newprefix = args.shift()
             const file = getServerData(message, "file")
