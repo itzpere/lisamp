@@ -1,9 +1,8 @@
 const { repeat, check } = require('../../music-logic.js');
-const fs = require("fs")
 module.exports = {
     callback: (message, ...args) => {
         console.log("repeat: ",args);
-        const { getServerData } = require("../../ServerData.js")
+        const { getServerData, setServerData } = require("../../ServerData.js")
         let prefix = getServerData(message, "prefix") 
         let num = 0;
         let arg = ""
@@ -48,31 +47,14 @@ module.exports = {
                         num = 3;
                         setdefaultrepeat(num);
                         break;
-                    default:
-                        howtouse();
-                        break;
                 }
             default:
                 howtouse();
                 break;
         }
-        
-        async function setdefaultrepeat (num){
-            const setValue = (fn, value) => {
-                fs.readFile(fn)
-                .then(body => JSON.parse(body))
-                .then(json => {
-                    json.repeat = value
-                    return json
-                })
-                .then(json => JSON.stringify(json))
-                .then(body => fs.writeFile(fn, body, (err) => err && console.error(err)))
-                .catch(error => console.warn(error))
-                }
-        const file = getServerData(message, "file")
-        await setValue(file, num)
+        function setdefaultrepeat (value) {
+        setServerData(message,"repeat",value)
         message.channel.send(`Default repeat is set to: **${num}**\nReload the q for changes to take effect`)
         }
-
     }
 }

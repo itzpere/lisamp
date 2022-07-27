@@ -1,7 +1,8 @@
 const fs = require('fs');
 const defaultTemplate = require("./guilds/defaultTemplate.json")
 
-function main (guild){
+function main (message){
+    let guild = message.guild;
     let exist = false;
     let fileL = "";
     let temp = [];
@@ -17,15 +18,17 @@ function main (guild){
     return fileL;
 }
 function setData (message, wyn, value){
+    let file = main(message)
+    if (!file) return;
     let guild = message.guild;
-    fileL = main(guild)
-    if (!fileL) return;
     let jsonFile = require(file);
     delete require.cache[require.resolve(file)];
     jsonFile = require(file);
     try {
         jsonFile[wyn] = value
-        console.log(`Value ${value} is set for ${wyn}`)
+        console.log(`Value ${value} is set for ${wyn}`);
+        let stringDT = JSON.stringify(jsonFile);
+        fs.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
         return;
     }
     catch {
@@ -50,9 +53,9 @@ function check (guild) {
     return [exist, fileL];
 }
 function findValue (message, wyn){
-    let guild = message.guild;
-    file = main(guild)
+    let file = main(message)
     if (!file) return;
+    let guild = message.guild;
     if (wyn == undefined) {return}
     if (wyn == "file") {return file;}
     let jsonFile = require(file)
