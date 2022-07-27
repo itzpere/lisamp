@@ -1,7 +1,6 @@
 module.exports = {
-    callback: async (message, ...args) => {
+    callback: (message, ...args) => {
         console.log("prefix: ",args);
-        const fs = require('fs').promises
         const { getServerData, setServerData } = require("../../ServerData.js")
         let prefix = getServerData(message, "prefix")
         if (args == "") {message.channel.send(`Current prefix is: **${prefix}**`)}
