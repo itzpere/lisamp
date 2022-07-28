@@ -8,7 +8,7 @@ module.exports = {
             const newprefix = args.shift()
             const file = getServerData(message, "file")
             setServerData(message,"prefix", newprefix)
-            message.channel.send(`Prefix changed to: "**${newprefix}**"`);
+            message.channel.send(`✅ | Prefix changed to: "**${newprefix}**"`);
         }
     }
 }

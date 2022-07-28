@@ -32,7 +32,7 @@ function check (message){
 //play
 async function musicplay(message, song){
     if (message !== undefined){
-        if (song == undefined || song === ""){return message.send("❌ | Please specify the song")};
+        if (song == undefined || song === ""){return message.channel.send("❌ | Please specify the song")};
         if(!check(message)) { return;}
         if(player.getQueue(message.guild) != undefined && message.guild.me.voice.channel == null) {player.getQueue(message.guild).destroy()}
         const query = song;
