@@ -1,4 +1,5 @@
 const { repeat, check } = require('../../music-logic.js');
+const { Permissions } = require("discord.js")
 module.exports = {
     callback: (message, ...args) => {
         console.log("repeat: ",args);
@@ -33,6 +34,7 @@ module.exports = {
                 howtouse();
                 break;
             case "default":
+                if(!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){return message.channel.send("❌ | You need to have administrator privileges to use this command")}
                 switch (args.shift().toLowerCase()){
                     case "off":
                         num = 0;

@@ -1,8 +1,7 @@
-
+const { Permissions } = require("discord.js")
 module.exports = {
     callback: (message, ...args) => {
-        const { getServerData } = require("../../ServerData.js")
         console.log("test: ",args);
-        console.log(getServerData(message, args.shift()));
+        console.log(message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR));
     }
 }
