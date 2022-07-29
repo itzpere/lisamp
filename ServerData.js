@@ -19,6 +19,7 @@ function main (message){
 }
 //checks if value exist in default config and if it doesnt it adds it
 function checkDefault(jsonFile, wyn,guild){
+    //console.log("check default called")
     if (!jsonFile[wyn])
     {
         let tempi
@@ -73,14 +74,17 @@ function setData (message, wyn, value){
 }
 //this finds and returns value, if value doesnt exist in the file
 function findValue (message, wyn){
+    //console.log("find value called")
     let file = main(message)
     if (!file) return;
     let guild = message.guild;
     if (wyn == undefined) {return}
     if (wyn == "file") {return file;}
+    //console.log("jsonfile read called")
     let jsonFile = require(file)
     delete require.cache[require.resolve(file)];
     jsonFile = require(file)
+    //console.log("jsonfile read done")
     checkDefault(jsonFile,wyn,guild);
     try {return jsonFile[wyn]}
     catch {console.error(error);return;}
@@ -89,10 +93,10 @@ function findValue (message, wyn){
 //adds new config file for guild
 function addNewGuild(guild){
     let stringDT = JSON.stringify(defaultTemplate);
-    fs.promises.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
+    fs.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
 }
 module.exports = {
     getServerData : findValue,
-    setServerData : setData
+    setServerData : setData,
+    restartToDefaultData : addNewGuild
 }
-
