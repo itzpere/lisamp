@@ -5,7 +5,7 @@ module.exports = {
         console.log("help: ",args);
         let prefix = getServerData(message, "prefix")
         var txt = "";
-        const excluded = [""]; //commands you dont want to show
+        const excluded = ["help"]; //commands you dont want to show
         var arg = args.shift();
         if (arg !== undefined)
         {

@@ -49,6 +49,10 @@
     },
     "repeat" : {
         "Description" : "Sets if you want your songs to reapat",
-        "Usage" : "repeat [option]\nOFF = 0\nTRACK = 1\nQUEUE = 2\nAUTOPLAY = 3"
+        "Usage" : "repeat [option]\nDEFAULT [option]\nOFF = 0\nTRACK = 1\nQUEUE = 2\nAUTOPLAY = 3"
+    },
+    "prefix" : {
+        "Description" : "Sets default prefix for this server",
+        "Usage" : "prefix [new prefix]"
     }
 }
