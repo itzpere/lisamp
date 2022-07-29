@@ -4,9 +4,9 @@ module.exports = {
     callback: (message, ...args) => {
         console.log("help: ",args);
         let prefix = getServerData(message, "prefix")
-        var txt = "";
+        let txt = "";
         const excluded = ["help"]; //commands you dont want to show
-        var arg = args.shift();
+        let arg = args.shift();
         if (arg !== undefined)
         {
             for(var index in data) { 

@@ -19,13 +19,16 @@ function playing (queue, track){
 function config (message){
 	let guild = message.guild
 	let jsonFile = require(getServerData(message,"file"))
+	let jsonFileDT = require("./guilds/defaultTemplate.json")
+	let jsonStringDT = JSON.stringify(jsonFileDT,null,4)
 	let jsonString = JSON.stringify(jsonFile,null,4)
 	const config = new MessageEmbed()
 		.setColor(0x0099FF)
 		.setTitle(`Config for ${guild.name}`)
 		.setThumbnail(guild.iconURL)
 		.addFields(
-			{ name: 'Config', value: jsonString, inline: true }
+			{ name: 'Server config', value: jsonString, inline: true },
+			{ name: 'Default config', value: jsonStringDT, inline: true }
 		)
 		.setTimestamp()
 		.setFooter({text: guild.id, iconURL: 'https://cdn.discordapp.com/app-icons/996836986948157460/0d45bfa4728b32e3b8f3e4c71da8fa84.png?size=256' });
