@@ -54,5 +54,9 @@
     "prefix" : {
         "Description" : "Sets default prefix for this server",
         "Usage" : "prefix [new prefix]"
+    },
+    "set" : {
+        "Description" : "set the rank required to use music commands",
+        "Usage" : "set [rank]"
     }
 }
