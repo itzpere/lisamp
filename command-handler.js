@@ -32,23 +32,23 @@ client.on('messageCreate', (message) => {
         }
     }
     try{
-        let prefix = getServerData(message, "prefix")
-        if (message.mentions.users.has(message.guild.me.id)) {return message.channel.send(`Hi\nCurrent prefix is: **${prefix}**`);return;}
-        if (message.author.bot || !message.content.startsWith(prefix)) {return;}
-        const args = message.content.slice(prefix.length).split(/ +/);
-        const commandName = args.shift().toLowerCase();
-        if (!commands[commandName]) {
-            return;
-        }
-        try {
-            commands[commandName].callback(message, ...args)
-        } catch (error) {
-            console.error(error)
-        }
+        var prefix = getServerData(message, "prefix")
     }
     catch{
         restartToDefaultData(message.guild); console.log("\x1b[31m","Writing config to default settings because of an error","\x1b[0m")
         message.channel.send("⚠️ | It looks like there has been an **error**, config was **restarted to default**")
+    }
+    if (message.mentions.users.has(message.guild.me.id)) {return message.channel.send(`Hi\nCurrent prefix is: **${prefix}**`);return;}
+    if (message.author.bot || !message.content.startsWith(prefix)) {return;}
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const commandName = args.shift().toLowerCase();
+    if (!commands[commandName]) {
+        return;
+    }
+    try {
+        commands[commandName].callback(message, ...args)
+    } catch (error) {
+        console.error(error)
     }
   })
 }
