@@ -1,5 +1,5 @@
-const { Permissions, RoleManager } = require("discord.js")
-const { setServerData } = require("../../ServerData")
+const { Permissions } = require("discord.js")
+const { setServerData, getServerData } = require("../../ServerData")
 module.exports = {
     callback: (message, ...args) => {
         console.log("set: ",args);
