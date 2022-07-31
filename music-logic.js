@@ -38,7 +38,9 @@ async function musicplay(message, song){
         const query = song;
         const queue = player.createQueue(message.guild, {
             metadata: {
-                channel: message.channel},
+                channel: message.channel,
+                message : message
+            },
                 async onBeforeCreateStream(track, source, _queue) {
                     if (source === "youtube" || source === "soundcloud"){
                         return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;

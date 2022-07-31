@@ -1,4 +1,4 @@
-const { MessageEmbed, Guild } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const getServerData = require("./ServerData").getServerData
 
 function playing (queue, track){
@@ -13,7 +13,7 @@ function playing (queue, track){
 			{ name: 'Views', value: track.views.toString(), inline: true },
 		)
 		.setTimestamp()
-		.setFooter({ text: track.id, iconURL: 'https://cdn.discordapp.com/app-icons/996836986948157460/0d45bfa4728b32e3b8f3e4c71da8fa84.png?size=256' });
+		.setFooter({ text: track.id, iconURL: queue.metadata.message.guild.me.displayAvatarURL()});
 	queue.metadata.channel.send({embeds: [playing]})
 }
 function config (message){
