@@ -1,7 +1,7 @@
 # LisAmp
 <img src="https://user-images.githubusercontent.com/107474038/182022984-5cb5d7ee-69ef-4ec6-ab91-33d636399475.png" alt="drawing" width="100%"/>
 Music bot you can host on your own<br>
-Add to server : https://discord.com/api/oauth2/authorize?client_id=996836986948157460&permissions=8&scope=bot
+Add to server : https://shorturl.at/hsxZ0
 
 ## List of features
 - Music play 24/7
