@@ -49,7 +49,7 @@ async function musicplay(message, song){
             });
     try {
     if (!queue.connection) await queue.connect(message.member.voice.channel);
-    let qrepeat = getServerData(message, "repeat"); //sets default repeat
+    let qrepeat = getServerData(message, ["repeat"]); //sets default repeat
     queue.setRepeatMode(qrepeat);
     console.log(`Default repeat is utilized and set to ${qrepeat}`);
 } catch {
@@ -153,7 +153,7 @@ function jump (message, args) {
         arg = args.shift()
         const queue = player.getQueue(message.guild)
         try {queue.jump(Number(arg)-1)}
-        catch {message.reply(`Enter the valid number\nType: **${getServerData(message, "prefix")}q** to display queue`)}
+        catch {message.reply(`Enter the valid number\nType: **${getServerData(message, ["prefix"])}q** to display queue`)}
     }
 }
 //back

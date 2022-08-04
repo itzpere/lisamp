@@ -3,7 +3,7 @@ const { getServerData } = require("../../ServerData.js")
 module.exports = {
     callback: (message, ...args) => {
         console.log("help: ",args);
-        let prefix = getServerData(message, "prefix")
+        let prefix = getServerData(message, ["prefix"])
         let txt = "";
         const excluded = ["help"]; //commands you dont want to show
         let arg = args.shift();

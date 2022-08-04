@@ -18,7 +18,7 @@ function playing (queue, track){
 }
 function config (message){
 	let guild = message.guild
-	let jsonFile = require(getServerData(message,"file"))
+	let jsonFile = require(getServerData(message,["file"]))
 	let jsonFileDT = require("./guilds/defaultTemplate.json")
 	let jsonStringDT = JSON.stringify(jsonFileDT,null,4)
 	let jsonString = JSON.stringify(jsonFile,null,4)
