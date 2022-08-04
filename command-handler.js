@@ -33,7 +33,6 @@ client.on('messageCreate', (message) => {
     }
     try{
         var prefix = getServerData(message, ["prefix"])
-        console.log(prefix)
     }
     catch{
         restartToDefaultData(message.guild); console.log("\x1b[31m","Writing config to default settings because of an error","\x1b[0m")

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const defaultTemplate = require("./guilds/defaultTemplate.json") //default config
-const debug = true;
+const debug = false;
 
 //this calls to create new guildid.json if it doesnt exist
 function main (message){ 
@@ -57,10 +57,9 @@ function setData (message, wyn, value){
     let file = main(message)
     if (!file) return;
     let guild = message.guild;
-    let jsonFile = require(file);
-    delete require.cache[require.resolve(file)];
-    jsonFile = require(file);
-    checkDefault(jsonFile,wyn, guild);
+    let jsonFile;
+    jsonFile = require(file)
+    checkDefault(jsonFile, wyn, guild);
     try {
         jsonFile[wyn] = value
         console.log(`Value ${value} is set for ${wyn}`);
@@ -88,7 +87,7 @@ function findValue (message, wyn){
         if (wyn == "file") {return file;}
         consoleDebug(`check ${wyn[index]}`)
         checkDefault(jsonFile,wyn[index],guild);
-        try{console.log("tried");array[index] = jsonFile[wyn[index]]}
+        try{array[index] = jsonFile[wyn[index]]}
         catch {console.error(error);return;}
     }
     consoleDebug("returning array")

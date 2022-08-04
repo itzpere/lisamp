@@ -7,7 +7,6 @@ module.exports = {
         array = getServerData(message, ["musicrole","prefix"])
         let musicrole = array[0]
         let prefix = array[1]
-        console.log(array)
         if (musicrole != "" && !message.member.roles.cache.some(role => role.name == musicrole) && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){return message.channel.send(`You need to have role called "**${musicrole}**" to use this command`)}
         let num = 0;
         let arg = ""
@@ -39,7 +38,9 @@ module.exports = {
                 break;
             case "default":
                 if(!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){return message.channel.send("❌ | You need to have administrator privileges to use this command")}
-                switch (args.shift().toLowerCase()){
+                try{var ar = args.shift().toLowerCase()}
+                catch{ar = "a"}
+                switch (ar){
                     case "off":
                         num = 0;
                         setdefaultrepeat(num);
@@ -55,6 +56,9 @@ module.exports = {
                     case "autoplay":
                         num = 3;
                         setdefaultrepeat(num);
+                        break;
+                    default:
+                        message.channel.send("Specify the correct option for default")
                         break;
                 }
         }
