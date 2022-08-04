@@ -64,7 +64,7 @@ module.exports = {
         }
         function setdefaultrepeat (value) {
         setServerData(message,"repeat",value)
-        message.channel.send(`Default repeat is set to: **${num}**\nReload the q for changes to take effect`)
+        message.channel.send(`✅ | Default repeat is set to: **${num}**\nReload the q for changes to take effect`)
         }
     }
 }

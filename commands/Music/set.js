@@ -7,10 +7,10 @@ module.exports = {
         let roleName = args.shift()
         let role = message.guild.roles.cache.find(x => x.name === roleName);
         if (role === undefined) {
-            return message.channel.send(`Role named "**${roleName}**" doesn't exist`)
+            return message.channel.send(`❌ | Role named "**${roleName}**" doesn't exist`)
         } else {
             setServerData(message, "musicrole", roleName)
-            return message.channel.send(`New settings **successfully** applied\nFrom now on you will need role called "**${roleName}**" to be able to use music commands`)
+            return message.channel.send(`✅ | New settings **successfully** applied\nFrom now on you will need role called "**${roleName}**" to be able to use music commands`)
         }
     }
 }
