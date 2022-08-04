@@ -4,9 +4,11 @@ const { Permissions } = require("discord.js")
 module.exports = {
     callback: (message, ...args) => {
         console.log("repeat: ",args);
-        let musicrole = getServerData(message, "musicrole")
+        array = getServerData(message, ["musicrole","prefix"])
+        let musicrole = array[0]
+        let prefix = array[1]
+        console.log(array)
         if (musicrole != "" && !message.member.roles.cache.some(role => role.name == musicrole) && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){return message.channel.send(`You need to have role called "**${musicrole}**" to use this command`)}
-        let prefix = getServerData(message, "prefix")
         let num = 0;
         let arg = ""
         function howtouse(){
