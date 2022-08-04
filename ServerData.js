@@ -1,107 +1,5 @@
 const fs = require('fs');
 const defaultTemplate = require("./guilds/defaultTemplate.json") //default config
-const dataBasetype = require("./config.json").dataBase
-var database;
-switch (dataBasetype.toLowerCase()){
-    case "mongodb": 
-        mongo()
-        break;
-    case "mysql":
-        var mysql = require("mysql")
-        console.log(`MySQL database loaded`)
-        database = 1
-        break;
-    default: 
-        mongo()
-        break;
-    }
-function mongo()
-{
-    const { MongoClient, ServerApiVersion } = require('mongodb');
-    const uri = "mongodb+srv://pere:<password>@lisamp.cv6eo05.mongodb.net/?retryWrites=true&w=majority";
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-    client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-});
-}
-/*
-func : get, set and restore - required for *
-message: message the user sent - required for *
-value: the value you want to get/set - required for get, set
-des: desired value - required for set
-*/
-function serverData ( func, message, value, des){
-    guild = message.guild
-    switch (database){
-        case 0://mongodb
-            return mongodb(func, guild, value, des)
-        case 1://mysql
-            return mysql(func, guild, value, des)
-    }
-}
-function mongodb(func, guild, value, des){
-    if (func === "get"){
-
-    } else
-    if (func === "set"){
-        
-    } else
-    if (func === "restore"){
-        
-    }
-}
-function mysql(func, guild, value, des){
-    if (func === "get"){
-
-    } else
-    if (func === "set"){
-        
-    } else
-    if (func === "restore"){
-        
-    }
-}
-
-
-module.exports = {
-    serverData
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //this calls to create new guildid.json if it doesnt exist
 function main (message){ 
@@ -196,4 +94,9 @@ function findValue (message, wyn){
 function addNewGuild(guild){
     let stringDT = JSON.stringify(defaultTemplate);
     fs.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
+}
+module.exports = {
+    getServerData : findValue,
+    setServerData : setData,
+    restartToDefaultData : addNewGuild
 }
