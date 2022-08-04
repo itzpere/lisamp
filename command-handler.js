@@ -1,7 +1,6 @@
 const getFiles = require('./get-files');
 const { getServerData, restartToDefaultData } = require("./ServerData.js")
-const { Client , Permissions } = require('discord.js');
-const client = new Client({ intents: 3243773 });
+const { PermissionFlagsBits } = require('discord.js');
 const suffix = ".js"
 
 module.exports = (client) => {
@@ -22,7 +21,7 @@ for (const command of commandFiles) {
 //console.log("Commands are :\n",commands);
 client.on('messageCreate', (message) => {
     if (message.content === "!restartconfig"){
-        if(!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
+        if(!message.member.permissions.has(PermissionFlagsBits.Administrator)){
             return message.channel.send("❌ | You need to have administrator privileges to use this command");
         }
         else{
@@ -38,7 +37,7 @@ client.on('messageCreate', (message) => {
         restartToDefaultData(message.guild); console.log("\x1b[31m","Writing config to default settings because of an error","\x1b[0m")
         message.channel.send("⚠️ | It looks like there has been an **error**, config was **restarted to default**")
     }
-    if (message.mentions.users.has(message.guild.me.id)) {return message.channel.send(`Hi\nCurrent prefix is: **${prefix}**`);return;}
+    if (message.mentions.users.has(message.guild.members.me.id)) {return message.channel.send(`Hi\nCurrent prefix is: **${prefix}**`);}
     if (message.author.bot || !message.content.startsWith(prefix)) {return;}
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();

@@ -1,6 +1,6 @@
 const { token } = require('./config.json');
 const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: 3243773 });
+const client = new Client({ intents: 3276541 });
 
 
 client.on('ready', () => {
@@ -8,7 +8,7 @@ client.on('ready', () => {
 	//let music = require('./music-logic.js')
 	if (handler.default) handler = handler.default
 	handler(client);
-	const music = require('./music-logic.js')
+	require('./music-logic.js')
 });
 
 client.on('ready', () => {
