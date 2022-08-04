@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 node_modules
 yarn.lock
+=======
+>>>>>>> f1759fecdde6543b0262d49aa9e001fd1da519f4
 config.json
 .package-lock.json
 package-lock.json
 guilds/*
 commands/Default/test.js
 !guilds/defaultTemplate.json
+node_modules
+package-lock.json
+yarn.lock
