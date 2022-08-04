@@ -1,5 +1,6 @@
 const fs = require('fs');
 const defaultTemplate = require("./guilds/defaultTemplate.json") //default config
+const debug = false;
 
 //this calls to create new guildid.json if it doesnt exist
 function main (message){ 
@@ -19,7 +20,7 @@ function main (message){
 }
 //checks if value exist in default config and if it doesnt it adds it
 function checkDefault(jsonFile, wyn,guild){
-    //console.log("check default called")
+    consoleDebug("check default called")
     if (!jsonFile[wyn])
     {
         let tempi
@@ -56,10 +57,9 @@ function setData (message, wyn, value){
     let file = main(message)
     if (!file) return;
     let guild = message.guild;
-    let jsonFile = require(file);
-    delete require.cache[require.resolve(file)];
-    jsonFile = require(file);
-    checkDefault(jsonFile,wyn, guild);
+    let jsonFile;
+    jsonFile = require(file)
+    checkDefault(jsonFile, wyn, guild);
     try {
         jsonFile[wyn] = value
         console.log(`Value ${value} is set for ${wyn}`);
@@ -74,19 +74,29 @@ function setData (message, wyn, value){
 }
 //this finds and returns value, if value doesnt exist in the file
 function findValue (message, wyn){
-    //console.log("find value called")
+    consoleDebug("find value called")
     let file = main(message)
     if (!file) return;
     let guild = message.guild;
-    if (wyn == undefined) {return}
-    if (wyn == "file") {return file;}
-    //console.log("jsonfile read called")
+    let array = [];
     let jsonFile = require(file)
     delete require.cache[require.resolve(file)];
     jsonFile = require(file)
-    //console.log("jsonfile read done")
-    checkDefault(jsonFile,wyn,guild);
-    try {return jsonFile[wyn]}
+    for (let index = 0; index < wyn.length; index++) {
+        if (wyn == undefined) {return}
+        if (wyn == "file") {return file;}
+        consoleDebug(`check ${wyn[index]}`)
+        checkDefault(jsonFile,wyn[index],guild);
+        try{array[index] = jsonFile[wyn[index]]}
+        catch {console.error(error);return;}
+    }
+    consoleDebug("returning array")
+    try {
+        if(array.length == 1){
+            return array[0]
+        }
+        else
+        return array}
     catch {console.error(error);return;}
     
 }
@@ -94,6 +104,11 @@ function findValue (message, wyn){
 function addNewGuild(guild){
     let stringDT = JSON.stringify(defaultTemplate);
     fs.writeFile(`./guilds/${guild.id}.json`, stringDT, (err) => err && console.error(err))
+}
+function consoleDebug(message){
+    if (debug){
+        console.log(message)
+    }
 }
 module.exports = {
     getServerData : findValue,

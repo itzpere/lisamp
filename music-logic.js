@@ -5,7 +5,7 @@ const { Player } = require("discord-player");
 const { getServerData } = require("./ServerData.js")
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
+const client = new Client({ intents: 3243773 });
 const player = new Player(client, {
     leaveOnEmpty : true
 });
@@ -23,7 +23,7 @@ let pausebool = false;
 //check
 function check (message){
     if(!message.member.voice.channel) {message.reply("❌ | Please connect to a voice channel!"); return false;}
-    if (message.guild.me.voice.channel != null) {if (message.guild.me.voice.channel != message.member.voice.channel) {
+    if (message.guild.members.me.voice.channel != null) {if (message.guild.members.me.voice.channel != message.member.voice.channel) {
         message.channel.send("❌ | You need to be connected to my voice") 
         return false;} else return true;} return true;
         
@@ -34,11 +34,13 @@ async function musicplay(message, song){
     if (message !== undefined){
         if (song == undefined || song === ""){return message.channel.send("❌ | Please specify the song")};
         if(!check(message)) { return;}
-        if(player.getQueue(message.guild) != undefined && message.guild.me.voice.channel == null) {player.getQueue(message.guild).destroy()}
+        if(player.getQueue(message.guild) != undefined && message.guild.members.me.voice.channel == null) {player.getQueue(message.guild).destroy()}
         const query = song;
         const queue = player.createQueue(message.guild, {
             metadata: {
-                channel: message.channel},
+                channel: message.channel,
+                message : message
+            },
                 async onBeforeCreateStream(track, source, _queue) {
                     if (source === "youtube" || source === "soundcloud"){
                         return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
@@ -47,7 +49,7 @@ async function musicplay(message, song){
             });
     try {
     if (!queue.connection) await queue.connect(message.member.voice.channel);
-    let qrepeat = getServerData(message, "repeat"); //sets default repeat
+    let qrepeat = getServerData(message, ["repeat"]); //sets default repeat
     queue.setRepeatMode(qrepeat);
     console.log(`Default repeat is utilized and set to ${qrepeat}`);
 } catch {
@@ -151,7 +153,7 @@ function jump (message, args) {
         arg = args.shift()
         const queue = player.getQueue(message.guild)
         try {queue.jump(Number(arg)-1)}
-        catch {message.reply(`Enter the valid number\nType: **${getServerData(message, "prefix")}q** to display queue`)}
+        catch {message.reply(`Enter the valid number\nType: **${getServerData(message, ["prefix"])}q** to display queue`)}
     }
 }
 //back

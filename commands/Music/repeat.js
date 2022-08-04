@@ -1,12 +1,13 @@
 const { repeat, check } = require('../../music-logic.js');
 const { getServerData, setServerData } = require("../../ServerData.js")
-const { Permissions } = require("discord.js")
+const { PermissionFlagsBits } = require("discord.js")
 module.exports = {
     callback: (message, ...args) => {
         console.log("repeat: ",args);
-        let musicrole = getServerData(message, "musicrole")
-        if (musicrole != "" && !message.member.roles.cache.some(role => role.name == musicrole) && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){return message.channel.send(`You need to have role called "**${musicrole}**" to use this command`)}
-        let prefix = getServerData(message, "prefix") 
+        array = getServerData(message, ["musicrole","prefix"])
+        let musicrole = array[0]
+        let prefix = array[1]
+        if (musicrole != "" && !message.member.roles.cache.some(role => role.name == musicrole) && !message.member.permissions.has(PermissionFlagsBits.Administrator)){return message.channel.send(`You need to have role called "**${musicrole}**" to use this command`)}
         let num = 0;
         let arg = ""
         function howtouse(){
@@ -36,8 +37,10 @@ module.exports = {
                 howtouse();
                 break;
             case "default":
-                if(!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){return message.channel.send("❌ | You need to have administrator privileges to use this command")}
-                switch (args.shift().toLowerCase()){
+                if(!message.member.permissions.has(PermissionFlagsBits.Administrator)){return message.channel.send("❌ | You need to have administrator privileges to use this command")}
+                try{var ar = args.shift().toLowerCase()}
+                catch{ar = "a"}
+                switch (ar){
                     case "off":
                         num = 0;
                         setdefaultrepeat(num);
@@ -54,11 +57,14 @@ module.exports = {
                         num = 3;
                         setdefaultrepeat(num);
                         break;
+                    default:
+                        message.channel.send("Specify the correct option for default")
+                        break;
                 }
         }
         function setdefaultrepeat (value) {
         setServerData(message,"repeat",value)
-        message.channel.send(`Default repeat is set to: **${num}**\nReload the q for changes to take effect`)
+        message.channel.send(`✅ | Default repeat is set to: **${num}**\nReload the q for changes to take effect`)
         }
     }
 }
