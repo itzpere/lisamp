@@ -7,6 +7,9 @@ const embeds = require("./embeds.js");
 const client = require('./index.js')
 const player = new Player(client);
 
+// configuration
+const leaveMessage = `＼(-_- )  I quit`;
+
 
 playdl.setToken({ youtube : { cookie : "" } }) //if you want to set coockie
 const lyricsClient = Lyrics.init();
@@ -14,8 +17,9 @@ player.use("reverbnation", Reverbnation);
 
 //on event commands
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
-player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
+player.on("botDisconnect", (queue) => queue.metadata.channel.send(leaveMessage))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
+player.on('channelEmpty', (queue) => queue.metadata.channel.send(leaveMessage))
 //variables
 let pausebool = false; 
 
