@@ -25,6 +25,7 @@
     "discord-player": "^5.3",
     "discord.js": "^14.1.2",
     "ffmpeg-static": "^5.0.2",
-    "play-dl": "^1.9.5"
+    "play-dl": "^1.9.5",
+    "sqlite3": "^5.0.11"
   }
 }
