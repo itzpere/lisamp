@@ -1,11 +1,17 @@
 
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
+
+fs.appendFile("./ServerData.db",'',(err) => {
+if (err) return console.error(err.message)})
 
 //connect to db
 const db = new sqlite3.Database('./ServerData.db',sqlite3.OPEN_READWRITE,(err)=>{
     if (err) return console.error(err.message);
     else return console.log("Database: OK")
 })
+
+
 
 //createNewTable()
 function createNewTable(){
