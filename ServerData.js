@@ -10,12 +10,10 @@ const db = new sqlite3.Database('./ServerData.db',sqlite3.OPEN_READWRITE,(err)=>
     if (err) return console.error(err.message);
     else return console.log("Database: OK")
 })
-
-
-
+createNewTable()
 //createNewTable()
 function createNewTable(){
-db.run('create table config(id,prefix,repeat,musicrole)');
+db.run('create table IF NOT EXISTS config(id,prefix,repeat,musicrole)');
 }
 //update value  SetServerData
 function setValue(message, value, newvalue, callback){
@@ -59,24 +57,12 @@ function getValue(message, valueNeeded, callback){
             db.run('delete from config where id = ?',[guildid], (err) =>{
                 if (err) return console.error(err.message)
                 else insertDefault(guildid, () => {
-                    if (typeof callback === 'function')
-                    {
-                    return callback(rows[0][valueNeeded])
-                    }
-                    else{
-                        return rows[0][valueNeeded]
-                    }
+                    return message.channel.send("✅ | Server is now set up");
                 })
             })
         }else if (rows.length == 0){
             insertDefault(guildid, () => {
-                if (typeof callback === 'function')
-                {
-                return callback(rows[0][valueNeeded])
-                }
-                else{
-                    return rows[0][valueNeeded]
-                }
+                return message.channel.send("✅ | Server is now set up");
             })
         }
         else
@@ -93,7 +79,7 @@ function getValue(message, valueNeeded, callback){
 function insertDefault(guildid, callback){
     db.run('insert into config (id,prefix,repeat,musicrole) values (?,?,?,?)',[guildid,"!",0,""],(err) =>{
         if (err) return console.error(err.message);
-        else  if (typeof callback === 'function') callback()
+        else if (typeof callback === 'function') callback()
     })
 }
 
