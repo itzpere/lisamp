@@ -1,14 +1,14 @@
 require("discord-player/smoothVolume");
-const { Client, Intents } = require ('discord.js');
 const { Reverbnation, Lyrics } = require("@discord-player/extractor");
 const { Player } = require("discord-player");
 const { getServerData } = require("./ServerData.js")
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
-const client = new Client({ intents: 3243773 });
-const player = new Player(client, {
-    leaveOnEmpty : true
-});
+const client = require('./index.js')
+const player = new Player(client);
+
+
+playdl.setToken({ youtube : { cookie : "" } }) //if you want to set coockie
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
 
@@ -16,7 +16,6 @@ player.use("reverbnation", Reverbnation);
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
 player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
-player.on("channelEmpty", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit try`))
 //variables
 let pausebool = false; 
 
@@ -41,16 +40,15 @@ async function musicplay(message, song){
                 channel: message.channel,
                 message : message
             },
-                async onBeforeCreateStream(track, source, _queue) {
-                    if (source === "youtube" || source === "soundcloud"){
-                        return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
-                    }
+            async onBeforeCreateStream(track, source, _queue) {
+                if (source === "youtube" || source === "soundcloud"){
+                    return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
                 }
+            }
             });
     try {
     if (!queue.connection) await queue.connect(message.member.voice.channel);
     getServerData(message, "repeat", (qrepeat) => {
-        console.log(qrepeat)
         queue.setRepeatMode(qrepeat);
         console.log(`Default repeat is utilized and set to ${qrepeat}`);
     }); //sets default repeat
@@ -194,5 +192,4 @@ module.exports = {
     back : back,
     shuffle : shuffle
 }
-
 console.log("Music-Logic: OK")
