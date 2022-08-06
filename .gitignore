@@ -4,4 +4,3 @@ package-lock.json
 commands/Default/test.js
 node_modules
 yarn.lock
-ServerData.db
