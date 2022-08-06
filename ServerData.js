@@ -4,14 +4,14 @@ const sqlite3 = require('sqlite3').verbose();
 //connect to db
 const db = new sqlite3.Database('./ServerData.db',sqlite3.OPEN_READWRITE,(err)=>{
     if (err) return console.error(err.message);
-    else console.log("Database: OK")
+    else return console.log("Database: OK")
 })
 
 //createNewTable()
 function createNewTable(){
 db.run('create table config(id,prefix,repeat,musicrole)');
 }
-//update value
+//update value  SetServerData
 function setValue(message, value, newvalue, callback){
     const guildid = message.guild.id
     const sql = `update config set ${value} = ? where id = ?`
@@ -24,6 +24,7 @@ function setValue(message, value, newvalue, callback){
                 else insertDefault(guildid, () => {
                     db.run(sql,[newvalue,guildid], (err) =>{
                         if (err) return console.error(err.message)
+                        else if (typeof callback === 'function') callback()
                     })
                 })
             })
@@ -31,12 +32,14 @@ function setValue(message, value, newvalue, callback){
             insertDefault(guildid, () => {
                 db.run(sql,[newvalue,guildid], (err) =>{
                     if (err) return console.error(err.message)
+                    else if (typeof callback === 'function') callback()
                 })
             })
         }
         else
         db.run(sql,[newvalue,guildid], (err) =>{
             if (err) return console.error(err.message)
+            else if (typeof callback === 'function') callback()
         })
     })
 }
@@ -70,7 +73,7 @@ function getValue(message, valueNeeded, callback){
                 }
             })
         }
-        else console.log(`none, return value: "${rows[0][valueNeeded]}"`)
+        else
         if (typeof callback === 'function')
         {
         return callback(rows[0][valueNeeded])

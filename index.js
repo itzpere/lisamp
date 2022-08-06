@@ -4,8 +4,8 @@ const client = new Client({ intents: 3276541 });
 
 
 client.on('ready', () => {
-	let handler = require('./command-handler.js')
-	//let music = require('./music-logic.js')
+	require("./ServerData.js")
+	const handler = require('./command-handler.js')
 	if (handler.default) handler = handler.default
 	handler(client);
 	require('./music-logic.js')
