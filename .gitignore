@@ -1,9 +1,7 @@
 config.json
 .package-lock.json
 package-lock.json
-guilds/*
 commands/Default/test.js
-!guilds/defaultTemplate.json
 node_modules
-package-lock.json
 yarn.lock
+ServerData.db
