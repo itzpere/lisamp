@@ -69,8 +69,11 @@ message.channel.send(`⏱️ | Loading track **${track.title}**!`).then(msg => {
     setTimeout(() => msg.delete(), 5000)
   })
   .catch(console.error);
-
-queue.play(track);
+    if (track.playlist === undefined){
+    queue.play(track);
+    }else{
+    queue.addTracks(track.playlist.tracks);
+    queue.play()}
 if (queue.current == undefined){
     await new Promise(resolve => setTimeout(resolve, 5000));
 }
@@ -113,7 +116,13 @@ function pause(message) {
     const queue = player.getQueue(message.guild)
     pausebool = !pausebool;
     queue.setPaused(pausebool)
+    if (pausebool === false){
+        message.channel.send("✅ | UnPaused")
     }
+    else{
+    message.channel.send("✅ | Paused");
+    }
+  }
 }
 //lyrics
 function lyrics(message){
@@ -130,7 +139,22 @@ function queue (message) {
     if(message !== undefined){
         const queue = player.getQueue(message.guild)
         if (queue !== undefined){
-            message.channel.send(queue.toString());
+            let dnum = 10
+            let num = 0
+            let msg = ""
+            let lenght = queue.tracks.length;
+            Object.values(queue.tracks).forEach(track =>{
+                num = num + 1
+                msg = msg + `${num}: **${track}**\n`
+                if (num === dnum){
+                    dnum = dnum + 10
+                    message.channel.send(msg)
+                    msg = ""
+                }
+                if (num === lenght){
+                    message.channel.send(msg)
+                }
+            })
         }
         else{
             message.channel.send("❌ | Nothing is playing");
