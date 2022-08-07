@@ -1,6 +1,6 @@
 {
   "name": "lisamp",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Discord js, your own music bot",
   "main": "index.js",
   "scripts": {
