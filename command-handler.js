@@ -2,9 +2,9 @@ const getFiles = require('./get-files');
 const { getServerData, restartToDefaultData } = require("./ServerData.js")
 const { PermissionFlagsBits } = require('discord.js');
 const suffix = ".js"
+const client = require('./index.js')
 
-module.exports = (client) => {
-    const commands = {};
+const commands = {};
 
 const commandFiles = getFiles('./commands', suffix);
 //console.log("Found these command files :\n", commandFiles);
@@ -45,5 +45,4 @@ client.on('messageCreate', (message) => {
         }
         })
     })
-}
 console.log("Command-Handler: OK")

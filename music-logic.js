@@ -1,22 +1,25 @@
 require("discord-player/smoothVolume");
-const { Client, Intents } = require ('discord.js');
 const { Reverbnation, Lyrics } = require("@discord-player/extractor");
 const { Player } = require("discord-player");
 const { getServerData } = require("./ServerData.js")
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
-const client = new Client({ intents: 3243773 });
-const player = new Player(client, {
-    leaveOnEmpty : true
-});
+const client = require('./index.js')
+const player = new Player(client);
+
+// configuration
+const leaveMessage = `＼(-_- )  I quit`;
+
+
+playdl.setToken({ youtube : { cookie : "" } }) //if you want to set coockie
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
 
 //on event commands
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
-player.on("botDisconnect", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit`))
+player.on("botDisconnect", (queue) => queue.metadata.channel.send(leaveMessage))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
-player.on("channelEmpty", (queue) => queue.metadata.channel.send(`＼(-_- )  I quit try`))
+player.on('channelEmpty', (queue) => queue.metadata.channel.send(leaveMessage))
 //variables
 let pausebool = false; 
 
@@ -41,16 +44,15 @@ async function musicplay(message, song){
                 channel: message.channel,
                 message : message
             },
-                async onBeforeCreateStream(track, source, _queue) {
-                    if (source === "youtube" || source === "soundcloud"){
-                        return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
-                    }
+            async onBeforeCreateStream(track, source, _queue) {
+                if (source === "youtube" || source === "soundcloud"){
+                    return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
                 }
+            }
             });
     try {
     if (!queue.connection) await queue.connect(message.member.voice.channel);
     getServerData(message, "repeat", (qrepeat) => {
-        console.log(qrepeat)
         queue.setRepeatMode(qrepeat);
         console.log(`Default repeat is utilized and set to ${qrepeat}`);
     }); //sets default repeat
@@ -67,8 +69,11 @@ message.channel.send(`⏱️ | Loading track **${track.title}**!`).then(msg => {
     setTimeout(() => msg.delete(), 5000)
   })
   .catch(console.error);
-
-queue.play(track);
+    if (track.playlist === undefined){
+    queue.play(track);
+    }else{
+    queue.addTracks(track.playlist.tracks);
+    queue.play()}
 if (queue.current == undefined){
     await new Promise(resolve => setTimeout(resolve, 5000));
 }
@@ -111,7 +116,13 @@ function pause(message) {
     const queue = player.getQueue(message.guild)
     pausebool = !pausebool;
     queue.setPaused(pausebool)
+    if (pausebool === false){
+        message.channel.send("✅ | UnPaused")
     }
+    else{
+    message.channel.send("✅ | Paused");
+    }
+  }
 }
 //lyrics
 function lyrics(message){
@@ -128,7 +139,22 @@ function queue (message) {
     if(message !== undefined){
         const queue = player.getQueue(message.guild)
         if (queue !== undefined){
-            message.channel.send(queue.toString());
+            let dnum = 10
+            let num = 0
+            let msg = ""
+            let lenght = queue.tracks.length;
+            Object.values(queue.tracks).forEach(track =>{
+                num = num + 1
+                msg = msg + `${num}: **${track}**\n`
+                if (num === dnum){
+                    dnum = dnum + 10
+                    message.channel.send(msg)
+                    msg = ""
+                }
+                if (num === lenght){
+                    message.channel.send(msg)
+                }
+            })
         }
         else{
             message.channel.send("❌ | Nothing is playing");
@@ -194,5 +220,4 @@ module.exports = {
     back : back,
     shuffle : shuffle
 }
-
 console.log("Music-Logic: OK")
