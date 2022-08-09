@@ -25,9 +25,7 @@ client.on('messageCreate', (message) => {
             return message.channel.send("❌ | You need to have administrator privileges to use this command");
         }
         else{
-        console.log("writing config to default settings");
-        restartToDefaultData(message.guild);
-        return message.channel.send("✅ | Config has been restarted to default settings")
+        return restartToDefaultData(message);
         }
     }
     getServerData(message, "prefix", (prefix) =>{

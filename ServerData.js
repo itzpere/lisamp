@@ -82,9 +82,19 @@ function insertDefault(guildid, callback){
         else if (typeof callback === 'function') callback()
     })
 }
+function restartToDefaultData(message){
+    let guildid = message.guild.id
+    db.run('delete from config where id = ?',[guildid], (err) =>{
+        if (err) return console.error(err.message)
+        else insertDefault(guildid, () => {
+            console.log(`Config has been restored to default settings for guild: ${guildid}`)
+            return message.channel.send("✅ | Server is now set up");
+        })
+    })
+}
 
 module.exports = {
     getServerData : getValue,
     setServerData : setValue,
-    //restartToDefaultData : addNewGuild
+    restartToDefaultData
 }
