@@ -1,6 +1,7 @@
 
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
+const { prefix, musicrole, repeat } = require("./config.json")
 
 fs.appendFile("./ServerData.db",'',(err) => {
 if (err) return console.error(err.message)})
@@ -77,7 +78,7 @@ function getValue(message, valueNeeded, callback){
 }
 //insert default
 function insertDefault(guildid, callback){
-    db.run('insert into config (id,prefix,repeat,musicrole) values (?,?,?,?)',[guildid,"!",0,""],(err) =>{
+    db.run('insert into config (id,prefix,repeat,musicrole) values (?,?,?,?)',[guildid,prefix,repeat,musicrole],(err) =>{
         if (err) return console.error(err.message);
         else if (typeof callback === 'function') callback()
     })

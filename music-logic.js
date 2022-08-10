@@ -5,13 +5,14 @@ const { getServerData } = require("./ServerData.js")
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
 const client = require('./index.js')
+const { ytcookie, spcookie } = require("./config.json")
 const player = new Player(client);
 
 // configuration
 const leaveMessage = `＼(-_- )  I quit`;
 
 
-playdl.setToken({ youtube : { cookie : "" } }) //if you want to set cookie
+playdl.setToken({ youtube : { cookie : ytcookie }, spotify : { cookie : spcookie } }) //cookie
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
 
