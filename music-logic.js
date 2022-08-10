@@ -55,7 +55,6 @@ async function musicplay(message, song){
     if (!queue.connection) await queue.connect(message.member.voice.channel);
     getServerData(message, "repeat", (qrepeat) => {
         queue.setRepeatMode(qrepeat);
-        console.log(`Default repeat is utilized and set to ${qrepeat}`);
     }); //sets default repeat
 } catch {
     queue.destroy();
@@ -87,7 +86,7 @@ function skip (message) {
     if(!check(message)) return;
     if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
     const q = player.getQueue(message.guild);
-    message.reply(`⏭️ | Skipped track **${q.current}**`)
+    message.channel.send(`⏭️ | Skipped track **${q.current}**`)
     return q.skip() 
 }
 }
@@ -191,9 +190,8 @@ function back (message) {
         if(!check(message)) return;
         if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
         const queue = player.getQueue(message.guild)
-        console.log(queue)
-        try {queue.back()}
-        catch{message.reply("❌ | There is no back")}
+        try {queue.back(); return message.channel.send("⏪ | Going back")}
+        catch{return message.channel.send("❌ | There is no back")}
     }
 }
 //shuffle
