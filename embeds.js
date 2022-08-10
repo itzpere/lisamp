@@ -50,9 +50,10 @@ async function playing (queue, track){
 				})
 			}, 500)) //delay because .then is not waiting for react to finish sending
 			//todo dodaj pause tako sto ces da colllectujes vise reakcija a ne samo prvu
-			}).catch(() => {
+			.catch(() => {
 				msg.reactions.removeAll().catch(error => console.error('Failed to clear reactions:', error));
-			});
+			})
+		});
 }
 module.exports = {
 	currentlyplaying : playing

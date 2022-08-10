@@ -185,13 +185,12 @@ function jump (message, args) {
     }
 }
 //back
-function back (message) {
+async function back (message) {
     if(message !== undefined){
         if(!check(message)) return;
         if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
         const queue = player.getQueue(message.guild)
-        try {queue.back(); return message.channel.send("⏪ | Going back")}
-        catch{return message.channel.send("❌ | There is no back")}
+        queue.back().then(() => message.channel.send("⏪ | Going back")).catch(() => message.channel.send("❌ | There is no back"))
     }
 }
 //shuffle
