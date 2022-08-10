@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 
-function playing (queue, track){
-	const playing = new EmbedBuilder()
+async function playing (queue, track){
+	const play = new EmbedBuilder()
 		.setColor(0x0099FF)
 		.setTitle(track.title)
 		.setURL(track.url)
@@ -13,7 +13,15 @@ function playing (queue, track){
 		)
 		.setTimestamp()
 		.setFooter({ text: track.id, iconURL: queue.metadata.message.guild.members.me.displayAvatarURL()});
-	queue.metadata.channel.send({embeds: [playing]})
+		queue.metadata.channel.send({embeds: [play]}).then(msg => {
+			Promise.all([
+				msg.react('⏪'),
+				msg.react('⏸️'),
+				msg.react('⏭️'),
+				msg.react('⏹️'),
+				msg.react('👋')
+			])
+		})
 }
 module.exports = {
 	currentlyplaying : playing

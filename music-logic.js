@@ -15,13 +15,14 @@ playdl.setToken({ youtube : { cookie : "" } }) //if you want to set coockie
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
 
+//variables
+let pausebool = false; 
+
 //on event commands
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
 player.on("botDisconnect", (queue) => queue.metadata.channel.send(leaveMessage))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
 player.on('channelEmpty', (queue) => queue.metadata.channel.send(leaveMessage))
-//variables
-let pausebool = false; 
 
 //check
 function check (message){
