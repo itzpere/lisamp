@@ -75,7 +75,7 @@ function getValue(message, valueNeeded, callback){
         }
     })
 }
-//insert deafult
+//insert default
 function insertDefault(guildid, callback){
     db.run('insert into config (id,prefix,repeat,musicrole) values (?,?,?,?)',[guildid,"!",0,""],(err) =>{
         if (err) return console.error(err.message);

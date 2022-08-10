@@ -11,7 +11,7 @@ const player = new Player(client);
 const leaveMessage = `＼(-_- )  I quit`;
 
 
-playdl.setToken({ youtube : { cookie : "" } }) //if you want to set coockie
+playdl.setToken({ youtube : { cookie : "" } }) //if you want to set cookie
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
 
