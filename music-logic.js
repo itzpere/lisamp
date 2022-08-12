@@ -5,23 +5,25 @@ const { getServerData } = require("./ServerData.js")
 const playdl = require("play-dl");
 const embeds = require("./embeds.js");
 const client = require('./index.js')
+const { ytcookie, spcookie } = require("./config.json")
 const player = new Player(client);
 
 // configuration
 const leaveMessage = `＼(-_- )  I quit`;
 
 
-playdl.setToken({ youtube : { cookie : "" } }) //if you want to set coockie
+playdl.setToken({ youtube : { cookie : ytcookie }, spotify : { cookie : spcookie } }) //cookie
 const lyricsClient = Lyrics.init();
 player.use("reverbnation", Reverbnation);
+
+//variables
+let pausebool = false; 
 
 //on event commands
 player.on("trackStart", (queue, track) => embeds.currentlyplaying(queue, track));
 player.on("botDisconnect", (queue) => queue.metadata.channel.send(leaveMessage))
 player.on("trackAdd", (queue, track) => queue.metadata.channel.send(`👌 | Added **${track.title}** to q`))
 player.on('channelEmpty', (queue) => queue.metadata.channel.send(leaveMessage))
-//variables
-let pausebool = false; 
 
 //check
 function check (message){
@@ -54,7 +56,6 @@ async function musicplay(message, song){
     if (!queue.connection) await queue.connect(message.member.voice.channel);
     getServerData(message, "repeat", (qrepeat) => {
         queue.setRepeatMode(qrepeat);
-        console.log(`Default repeat is utilized and set to ${qrepeat}`);
     }); //sets default repeat
 } catch {
     queue.destroy();
@@ -86,7 +87,7 @@ function skip (message) {
     if(!check(message)) return;
     if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
     const q = player.getQueue(message.guild);
-    message.reply(`⏭️ | Skipped track **${q.current}**`)
+    message.channel.send(`⏭️ | Skipped track **${q.current}**`)
     return q.skip() 
 }
 }
@@ -185,14 +186,12 @@ function jump (message, args) {
     }
 }
 //back
-function back (message) {
+async function back (message) {
     if(message !== undefined){
         if(!check(message)) return;
         if(player.getQueue(message.guild) == undefined){message.channel.send("❌ | Nothing is playing"); return}
         const queue = player.getQueue(message.guild)
-        console.log(queue)
-        try {queue.back()}
-        catch{message.reply("❌ | There is no back")}
+        queue.back().then(() => message.channel.send("⏪ | Going back")).catch(() => message.channel.send("❌ | There is no back"))
     }
 }
 //shuffle
