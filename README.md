@@ -46,5 +46,5 @@ In here you only need to give the script your bot token (other stuff are optiona
 When you want to update the bot to the newer version you can run <br> `git reset --hard HEAD` <br>`git pull`<br> and you wont need to do the setup process again, just run <br>`npm install`<br> and you are good to go. <br>
 If you want a deaper explanation you can take a look at [wiki](https://github.com/itzpere/lisamp/wiki).
 ## Version
-0.2.7
+0.2.8
 
