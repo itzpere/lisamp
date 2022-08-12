@@ -37,14 +37,14 @@ Add to server : https://shorturl.at/hsxZ0
 
 ## How to use
 To use the bot you will need **nodeJS 16.6.0 or higher** and then after cloning the repository you run <br> `npm install` <br> which will install all dependencies and i personally use **pm2** for hosting the bot. You can install it with <br>`npm i pm2 -g` (-g stands for global so if you want it to be only internal package you can remove it) <br> Start the bot with <br>`pm2 start index.js`<br>
-But before you run the bot you will need to create a `config.json` file in main repo which will indule the following code:
+But before you run the bot you will need to run **setup.sh script** by typing in console <br> `./setup.sh` <br>
+In here you only need to give the script your bot token (other stuff are optional). Script will create config.json file that will contain something like this: 
 ```json
-{
-   "token"   : "YourBotToken"
-}
+{ "token" : "YourToken","prefix" : "!","musicrole" : "","repeat" : "0","ytcookie" : "","spcookie" : ""}
 ```
-And lastly when you want to update the bot to the newer version you can run <br> `git reset --hard HEAD` <br>`git pull`<br> and you wont need to do the setup process again, just run `npm install` and you are good to go.
-If you want a deaper explenation you can take a look at [wiki](https://github.com/itzpere/lisamp/wiki)
+### Update to new version
+When you want to update the bot to the newer version you can run <br> `git reset --hard HEAD` <br>`git pull`<br> and you wont need to do the setup process again, just run <br>`npm install`<br> and you are good to go. <br>
+If you want a deaper explanation you can take a look at [wiki](https://github.com/itzpere/lisamp/wiki).
 ## Version
-0.2.7 *In development*
+0.2.7
 
